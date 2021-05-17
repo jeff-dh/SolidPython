@@ -693,13 +693,18 @@ def new_openscad_class_str(class_name: str,
         result = (f"import solid\n"
                   f"class {class_name}(solid.IncludedOpenSCADObject):\n"
                   f"   def __init__(self{args_str}, **kwargs):\n"
-                  f"       solid.IncludedOpenSCADObject.__init__(self, '{class_name}', {{{args_pairs} }}, include_file_path='{include_file_str}', use_not_include={use_not_include}, **kwargs )\n"
+                  f"       solid.IncludedOpenSCADObject.__init__(self, '{class_name}', {{{args_pairs} }},"
+                  f"                                             include_file_path='{include_file_str}',"
+                  f"                                             use_not_include={use_not_include},"
+                  f"                                             **kwargs )\n"
                   f"   \n"
                   f"\n")
     else:
-        result = (f"class {class_name}(OpenSCADObject):\n"
-                  f"   def __init__(self{args_str}):\n"
-                  f"       OpenSCADObject.__init__(self, '{class_name}', {{{args_pairs }}})\n"
+        result = (f"from .solidpython import OpenSCADObject\n"
+                  f"class {class_name}(OpenSCADObject):\n"
+                  f"   def __init__(self{args_str}, **kwargs):\n"
+                  f"       OpenSCADObject.__init__(self, '{class_name}', {{{args_pairs }}},"
+                  f"                                     **kwargs)\n"
                   f"   \n"
                   f"\n")
 
