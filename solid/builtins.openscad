@@ -1,0 +1,61 @@
+module union();
+module difference();
+module intersection();
+module intersection_for(n);
+
+module translate(v);
+module scale(v);
+module rotate(a=default, v=default); //why is a default? -jeff
+module mirror(v);
+module resize(newsize, auto=default);
+
+module color(c, alpha=1.0);
+
+module minkowski();
+module offset(r=default, delta=default, chamfer=default, segments=default);
+module hull();
+module render(convexity=default);
+
+module linear_extrude(height=default,
+                      center=default,
+                      convexity=default,
+                      twist=default,
+                      slices=default,
+                      scale=default);
+
+module rotate_extrude(angle=default,
+                      convexity=default,
+                      segments=default);
+
+module projection(cut=default);
+module surface(file, center=default, convexity=default, invert=default);
+
+module child(index=default, vector=default, range=default);
+module children(index=default, vector=default, range=default);
+
+module import_stl(file, origin=default, convexity=default, layer=default);
+module import_dxf(file, origin=default, convexity=default, layer=default);
+module import(file, origin=default, convexity=default, layer=default);
+
+module assign();
+module multmatrix(m=default);
+
+//builtin primitives
+module polygon(points, paths=default, convexity=default);
+module circle(r=default, d=default, segments=default);
+module square(size=default, center=default);
+module sphere(r=default, d=default, segments=default);
+module cube(size=default, center=default);
+module cylinder(r=default, h=default, r1=default, r2=default,
+                d=default, d1=default, d2=default, center=default);
+module polyhedron(points, faces, convexity=default, triangles=default);
+module text(text,
+            size=default,
+            font=default,
+            halign=default,
+            valign=default,
+            spacing=default,
+            direction=default,
+            language=default,
+            script=default,
+            segments=default);
