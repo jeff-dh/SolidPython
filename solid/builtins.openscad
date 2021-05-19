@@ -5,7 +5,7 @@ module intersection_for(n);
 
 module translate(v);
 module scale(v);
-module rotate(a=default, v=default); //why is a default? -jeff
+module rotate(a=default, v=default);
 module mirror(v);
 module resize(newsize, auto=default);
 
