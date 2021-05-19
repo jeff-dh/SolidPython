@@ -186,3 +186,18 @@ OPENSCAD_BUILTINS_FILE = Path(__file__).absolute().parent / "builtins.openscad"
 
 use(OPENSCAD_BUILTINS_FILE, builtins=True)
 
+
+# =========================
+# = part and hole classes =
+# =========================
+class hole(OpenSCADObject):
+    def __init__(self) -> None:
+        super().__init__('hole', {})
+        self.set_hole(is_hole=True)
+
+
+class part(OpenSCADObject):
+    def __init__(self) -> None:
+        super().__init__('part', {})
+        self.set_part_root(is_root=True)
+
