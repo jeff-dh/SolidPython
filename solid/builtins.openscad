@@ -47,7 +47,7 @@ module square(size=default, center=default);
 module sphere(r=default, d=default, segments=default);
 module cube(size=default, center=default);
 module cylinder(r=default, h=default, r1=default, r2=default,
-                d=default, d1=default, d2=default, center=default);
+                d=default, d1=default, d2=default, center=default, segments=default);
 module polyhedron(points, faces, convexity=default, triangles=default);
 module text(text,
             size=default,
