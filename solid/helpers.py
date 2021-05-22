@@ -15,6 +15,9 @@ def _subbed_keyword(keyword: str) -> str:
     if keyword[0].isdigit():
         new_key = "_" + keyword
 
+    if not new_key.isidentifier():
+        raise Exception("\nFound illegal openscad identifier '{keyword}' -> import rejected!")
+
     if new_key != keyword:
         print(f"\nFound OpenSCAD code that's not compatible with Python. \n"
               f"Imported OpenSCAD code using `{keyword}` \n"
@@ -34,4 +37,3 @@ def _unsubbed_keyword(subbed_keyword: str) -> str:
         return subbed_keyword[1:]
 
     return subbed_keyword
-
