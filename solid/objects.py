@@ -783,7 +783,7 @@ def import_scad(scad_file_or_dir: PathStr) -> SimpleNamespace:
 
     resolved_scad = resolve_scad_file(scad_file_or_dir)
 
-    if resolved_scad in module_cache_by_name.keys():
+    if resolved_scad in module_cache_by_resolved_filename.keys():
         return module_cache_by_resolved_filename[resolved_scad]
 
     if not resolved_scad:
