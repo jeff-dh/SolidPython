@@ -311,13 +311,13 @@ class OpenSCADObject:
         """
         from .objects import union
         res = union()
-        if isinstance(self, union):
+        if isinstance(self, union) and not len(self.modifier):
             for c in self.children:
                 res.add(c)
         else:
             res.add(self)
 
-        if isinstance(x, union):
+        if isinstance(x, union) and not len(x.modifier):
             for c in x.children:
                 res.add(c)
         else:
@@ -337,7 +337,7 @@ class OpenSCADObject:
 
         res = difference()
 
-        if isinstance(self, difference) and len(self.children):
+        if isinstance(self, difference) and len(self.children) and not len(self.modifier):
             for c in self.children:
                 res.add(c)
         else:
@@ -355,13 +355,13 @@ class OpenSCADObject:
         from .objects import intersection
         res = intersection()
 
-        if isinstance(self, intersection):
+        if isinstance(self, intersection) and not len(self.modifier):
             for c in self.children:
                 res.add(c)
         else:
             res.add(self)
 
-        if isinstance(x, intersection):
+        if isinstance(x, intersection) and not len(self.modifier):
             for c in x.children:
                 res.add(c)
         else:
