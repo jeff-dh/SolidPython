@@ -309,28 +309,65 @@ class OpenSCADObject:
         This makes u = a+b identical to:
         u = union()(a, b )
         """
-        return objects.union()(self, x)
+        from .objects import union
+        res = union()
+        if isinstance(self, union):
+            for c in self.children:
+                res.add(c)
+        else:
+            res.add(self)
+
+        if isinstance(x, union):
+            for c in x.children:
+                res.add(c)
+        else:
+            res.add(x)
+
+        return x
 
     def __radd__(self, x: "OpenSCADObject") -> "OpenSCADObject":
-        """
-        This makes u = a+b identical to:
-        u = union()(a, b )
-        """
-        return objects.union()(self, x)
+        return self.__add__(x)
 
     def __sub__(self, x: "OpenSCADObject") -> "OpenSCADObject":
         """
         This makes u = a - b identical to:
         u = difference()(a, b )
         """
-        return objects.difference()(self, x)
+        from .objects import difference
+
+        res = difference()
+
+        if isinstance(self, difference) and len(self.children):
+            for c in self.children:
+                res.add(c)
+        else:
+            res.add(self)
+
+
+        res.add(x)
+        return res
 
     def __mul__(self, x: "OpenSCADObject") -> "OpenSCADObject":
         """
         This makes u = a * b identical to:
         u = intersection()(a, b )
         """
-        return objects.intersection()(self, x)
+        from .objects import intersection
+        res = intersection()
+
+        if isinstance(self, intersection):
+            for c in self.children:
+                res.add(c)
+        else:
+            res.add(self)
+
+        if isinstance(x, intersection):
+            for c in x.children:
+                res.add(c)
+        else:
+            res.add(x)
+
+        return intersection()(self, x)
 
     def _repr_png_(self) -> Optional[bytes]:
         """
