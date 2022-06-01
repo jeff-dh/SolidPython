@@ -17,6 +17,9 @@ class ScadValue:
     def __repr__(self):
         return f'{self.value}'
 
+    def _render(self):
+        return self.__repr__()
+
     def __operator_base__(self, op, other):
         return ScadValue(f'({self} {op} {other})')
 
