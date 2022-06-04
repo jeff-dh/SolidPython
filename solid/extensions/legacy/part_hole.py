@@ -42,7 +42,7 @@ class part(ObjectBase):
 #inject a root extension, e.g. wrap an instancen of this class around
 #the root node before rendering it. Equals python code:
 #       part(root_node)
-default_extension_manager.register_root_wrapper(part)
+default_extension_manager.register_root_wrapper(lambda root : part()(root))
 
 # ==========================
 # = local helper functions =

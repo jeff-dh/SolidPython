@@ -5,9 +5,6 @@ from solid.extensions.legacy import *
 
 FORWARD_VEC = [0, 1, 0]
 
-SEGMENTS = 120
-
-
 def pipe_intersection_hole():
     pipe_od = 12
     pipe_id = 10
@@ -91,5 +88,5 @@ if __name__ == '__main__':
     b = up(40)(multipart_hole())
     a += b
 
-    file_out = scad_render_to_file(a, out_dir=out_dir, _fn=SEGMENTS)
+    file_out = scad_render_to_file(a, out_dir=out_dir)
     print(f"{__file__}: SCAD file written to: \n{file_out}")

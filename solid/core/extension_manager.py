@@ -17,7 +17,7 @@ class ExtensionManager():
     def wrap_root_node(self, root):
         new_root_node = root
         for w in self.wrapper:
-            new_root_node = w()(new_root_node)
+            new_root_node = w(new_root_node)
 
         return new_root_node
 
