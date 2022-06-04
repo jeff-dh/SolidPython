@@ -61,6 +61,9 @@ ObjectBase.rotateZ = lambda self, z: convenience.rotateZ(z)(self)
 ObjectBase.resizeX = lambda self, x: convenience.resizeX(x)(self)
 ObjectBase.resizeY = lambda self, y: convenience.resizeY(y)(self)
 ObjectBase.resizeZ = lambda self, z: convenience.resizeZ(z)(self)
+ObjectBase.translateX = lambda self, x: convenience.translateX(x)(self)
+ObjectBase.translateY = lambda self, y: convenience.translateY(y)(self)
+ObjectBase.translateZ = lambda self, z: convenience.translateZ(z)(self)
 
 #debug, background, root, disable and ~
 ObjectBase.debug = lambda self: builtins.debug()(self)

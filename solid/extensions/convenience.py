@@ -74,6 +74,10 @@ def forward(y): return builtins.translate((0, y, 0))
 def fwd(y): return forward(y)
 def back(y): return builtins.translate((0, -y, 0))
 
+def translateX(x) : return builtins.translate((x, 0, 0))
+def translateY(y) : return builtins.translate((0, y, 0))
+def translateZ(z) : return builtins.translate((0, 0, z))
+
 def rotateX(x): return rotate(x, 0, 0)
 def rotateY(y): return rotate(0, y, 0)
 def rotateZ(z): return rotate(0, 0, z)
