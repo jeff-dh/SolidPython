@@ -5,7 +5,7 @@ import inspect
 
 registeredModules = {}
 
-def getCompileFunctionsHeader():
+def getRegisteredModulesStr():
     s = ""
     for f in registeredModules:
         s += registeredModules[f]
@@ -13,7 +13,7 @@ def getCompileFunctionsHeader():
     return s
 
 from solid.core.extension_manager import default_extension_manager
-default_extension_manager.register_pre_render(lambda root : getCompileFunctionsHeader())
+default_extension_manager.register_pre_render(lambda root : getRegisteredModulesStr())
 
 def exportReturnValueAsModule(func):
     def childrenToStr(args):
@@ -37,12 +37,11 @@ def exportReturnValueAsModule(func):
                 s = s[:-1]
         return s
 
-    def childrenFunc(i):
-        return ScadValue(f"children({i});\n")
-
     if not func in registeredModules:
         argSpecs = inspect.getfullargspec(func).args 
         parameters = [ScadValue(p) for p in argSpecs if not p == 'children']
+
+        childrenFunc = lambda i : ScadValue(f"children({i});\n")
 
         moduleCode = f"module {func.__name__}({parametersToStr(parameters)}){{\n"
         moduleCode += indent(func(*parameters, children=childrenFunc)._render())
