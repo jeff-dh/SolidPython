@@ -1,3 +1,5 @@
+#! /usr/bin/env python
+
 from solid import *
 
 #this imports (and enables) the child optimizer extension
