@@ -1,6 +1,5 @@
-from solid.extensions.greedy_scad_interface import *
 from solid.core.utils import indent
-from solid.core.object_base import ObjectBase
+from solid.core.object_base import ObjectBase, scad_inline
 import inspect
 
 registeredModules = {}
@@ -39,9 +38,9 @@ def exportReturnValueAsModule(func):
 
     if not func in registeredModules:
         argSpecs = inspect.getfullargspec(func).args 
-        parameters = [ScadValue(p) for p in argSpecs if not p == 'children']
+        parameters = [scad_inline(p) for p in argSpecs if not p == 'children']
 
-        childrenFunc = lambda i : ScadValue(f"children({i});\n")
+        childrenFunc = lambda i : scad_inline(f"children({i});\n")
 
         moduleCode = f"module {func.__name__}({parametersToStr(parameters)}){{\n"
         moduleCode += indent(func(*parameters, children=childrenFunc)._render())
@@ -54,7 +53,7 @@ def exportReturnValueAsModule(func):
 
         childrenStr = f"{{{childrenToStr(children)}}}" if len(children) else ""
         parameterStr = parametersToStr(parameters)
-        return ScadValue(f"{func.__name__}({parameterStr})" + childrenStr + ";\n")
+        return scad_inline(f"{func.__name__}({parameterStr})" + childrenStr + ";\n")
 
     return wrapper
 
