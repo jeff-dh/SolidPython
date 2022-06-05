@@ -4,7 +4,6 @@ from solid.core.object_base import scad_inline, ObjectBase
 class DepthMap:
     def __init__(self):
         self.data = []
-        self.nodeSet = set()
         self.iter_idx = -1
         self.iter_list = []
 
@@ -71,7 +70,7 @@ def childOptimizer(root):
     childsToExtract = [n for n in depthMap if nodeReferenceCount[n] > 1]
     getChildId = lambda n : len(childsToExtract) - childsToExtract.index(n) - 1
 
-    #replace the reference to the objects with calls to children(id)
+    #replace the references to the objects with calls to children(id)
     for n in childsToExtract:
         parents = nodeParents[n]
         #replace the references in each parent
