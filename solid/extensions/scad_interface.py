@@ -1,4 +1,4 @@
-from ..core.object_base import OpenSCADConstant, scad_inline
+from ..core.object_base import scad_inline
 
 class ScadInterface:
     def __init__(self):
