@@ -41,7 +41,7 @@ def childOptimizer(root):
     nodeParents = {}
 
     #collect nodeRefereneCount and nodeParents dicts
-    def collectRefCountAndParents(node, parent=None, depth=0):
+    def collectData(node, parent=None, depth=0):
 
         depthMap.addNode(node, depth)
         depth += 1
@@ -61,25 +61,22 @@ def childOptimizer(root):
             nodeParents[node].add(parent)
 
         for c in node.children:
-            collectRefCountAndParents(c, node, depth)
+            collectData(c, node, depth)
 
-    collectRefCountAndParents(root)
+    collectData(root)
 
     #extract the nodes we want to extract as children
-    childsToExtract = [n for n in nodeReferenceCount.keys() if nodeReferenceCount[n] > 1]
+    childsToExtract = [n for n in depthMap if nodeReferenceCount[n] > 1]
     getChildId = lambda n : len(childsToExtract) - childsToExtract.index(n) - 1
 
     #replace the reference to the objects with calls to children(id)
-    #for n in childsToExtract:
-    for n in depthMap:
-            if not n in childsToExtract:
-                continue
-            parents = nodeParents[n]
-            #replace the references in each parent
-            for p in parents:
-                while p.children.count(n) > 0:
-                    idx = p.children.index(n)
-                    p.children[idx] = scad_inline(f"children({getChildId(n)});\n")
+    for n in childsToExtract:
+        parents = nodeParents[n]
+        #replace the references in each parent
+        for p in parents:
+            while p.children.count(n) > 0:
+                idx = p.children.index(n)
+                p.children[idx] = scad_inline(f"children({getChildId(n)});\n")
 
     #create wrapper object and fill it
     mainModule = ObjectBase()
@@ -87,7 +84,6 @@ def childOptimizer(root):
     mainModule(scad_inline("module wrapperModule0() {\n"))
     #fill its body with the (modified) root node)
     mainModule(root)
-    #...
     mainModule(scad_inline("}\n"))
 
     #render all the childs
