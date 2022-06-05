@@ -1,22 +1,49 @@
 from solid import *
-from solid.core.object_base import OpenSCADConstant, ObjectBase
+from solid.core.object_base import scad_inline, ObjectBase
+
+class DepthMap:
+    def __init__(self):
+        self.data = []
+        self.nodeSet = set()
+        self.iter_idx = -1
+        self.iter_list = []
+
+    def addNode(self, node, depth):
+        if len(self.data) < depth+1:
+            assert(len(self.data) == depth)
+            self.data.append([])
+        assert(len(self.data) >= depth+1)
+        self.data[depth].append(node)
+
+    def __iter__(self):
+        iter_set = set()
+        self.iter_list = []
+        for i in range(len(self.data)):
+            idx = len(self.data)-i-1
+
+            for n in self.data[idx]:
+                if not n in iter_set:
+                    iter_set.add(n)
+                    self.iter_list.append(n)
+        self.iter_idx = len(self.iter_list)-1
+        return self
+
+    def __next__(self):
+        self.iter_idx -= 1
+        if self.iter_idx == -1:
+            raise StopIteration
+        d = self.iter_list[self.iter_idx+1]
+        return d
 
 def childOptimizer(root):
-    #print(root._render())
-    depthMap = []
+    depthMap = DepthMap()
     nodeReferenceCount = {}
     nodeParents = {}
 
     #collect nodeRefereneCount and nodeParents dicts
     def collectRefCountAndParents(node, parent=None, depth=0):
-        nonlocal nodeParents
-        nonlocal nodeReferenceCount
 
-        if len(depthMap) < depth+1:
-            assert(len(depthMap) == depth)
-            depthMap.append([])
-        assert(len(depthMap) >= depth+1)
-        depthMap[depth].append(node)
+        depthMap.addNode(node, depth)
         depth += 1
 
         if not node in nodeParents:
@@ -33,7 +60,6 @@ def childOptimizer(root):
         if parent != None:
             nodeParents[node].add(parent)
 
-        #print(f"{depth * 2 * "-"}{node.name}:{id(node)}")
         for c in node.children:
             collectRefCountAndParents(c, node, depth)
 
@@ -45,65 +71,43 @@ def childOptimizer(root):
 
     #replace the reference to the objects with calls to children(id)
     #for n in childsToExtract:
-    depthMap.reverse()
-    visitedNodes = []
-    for d in depthMap:
-        for n in d:
-            if n in visitedNodes:
-                continue
-            visitedNodes.append(n)
+    for n in depthMap:
             if not n in childsToExtract:
                 continue
-            #print(f"{n.name} refCount: {nodeReferenceCount[n]}")
-            #print(f"!!!{getChildId(n)}")
             parents = nodeParents[n]
             #replace the references in each parent
             for p in parents:
                 while p.children.count(n) > 0:
                     idx = p.children.index(n)
-                    p.children[idx] = OpenSCADConstant(f"children({getChildId(n)});\n")
+                    p.children[idx] = scad_inline(f"children({getChildId(n)});\n")
 
     #create wrapper object and fill it
     mainModule = ObjectBase()
     #add the mainModule wrapper
-    mainModule(OpenSCADConstant("module wrapperModule0() {\n"))
+    mainModule(scad_inline("module wrapperModule0() {\n"))
     #fill its body with the (modified) root node)
     mainModule(root)
     #...
-    mainModule(OpenSCADConstant("}\n"))
+    mainModule(scad_inline("}\n"))
 
     #render all the childs
     for n in childsToExtract:
         idx = childsToExtract.index(n)
-        mainModule(OpenSCADConstant(f"module wrapperModule{idx+1}() {{\n"))
+        mainModule(scad_inline(f"module wrapperModule{idx+1}() {{\n"))
         #the call to the next wrapperModule
-        mainModule(OpenSCADConstant(f"wrapperModule{idx}(){{"))
+        mainModule(scad_inline(f"wrapperModule{idx}(){{"))
         #pass on all the childs
         for i in range(len(childsToExtract) - idx - 1):
-            mainModule(OpenSCADConstant(f"children({i});"))
+            mainModule(scad_inline(f"children({i});"))
         #render the "new child" in the chain
         mainModule(n)
-        mainModule(OpenSCADConstant("}}\n"))
+        mainModule(scad_inline("}}\n"))
 
     #call the last wrapperModule
-    mainModule(OpenSCADConstant(f"wrapperModule{len(childsToExtract)}(){{}};\n"))
+    mainModule(scad_inline(f"wrapperModule{len(childsToExtract)}(){{}};\n"))
 
     return mainModule
 
 #register this extension
 from solid.core.extension_manager import default_extension_manager
 default_extension_manager.register_root_wrapper(childOptimizer)
-
-
-#test model 1
-c = cube(2)
-m1 = cube(1) + sphere(2)
-m2 = circle(5) + c + c + m1
-model1 = m1 - m2 + m1.translateX(10)
-
-#test model 2
-c = cube(1)
-model2 = c + c
-
-#render
-print(model1)
