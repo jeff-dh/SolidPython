@@ -26,10 +26,15 @@ def exportResultAsModule(func):
                 s = s[:-1]
         return s
 
-    def parametersToStr(args):
+    def parametersToStr(args, defaults):
         s = ""
-        for a in args:
-            s += str(a) + ","
+        for i in range(len(args)):#a in args:
+            a = args[i]
+            if i < len(args) - len(defaults):
+                s += str(a) + ","
+            else:
+                defaultIndex = i - (len(args) - len(defaults))
+                s += f"{str(a)} = {str(defaults[defaultIndex])},"
         if len(s):
             #cut of trailing ","
             s = s[:-1]
@@ -41,9 +46,10 @@ def exportResultAsModule(func):
 
     if not func in registeredModules:
         argSpecs = inspect.getfullargspec(func).args
+        defaults = inspect.getfullargspec(func).defaults
         parameters = [ScadValue(p) for p in argSpecs]
 
-        moduleCode = f"module {func.__name__}({parametersToStr(parameters)}){{\n"
+        moduleCode = f"module {func.__name__}({parametersToStr(parameters, defaults)}){{\n"
         moduleCode += indent(func(*parameters)._render())
         moduleCode += "}\n"
         registeredModules[func] = moduleCode
