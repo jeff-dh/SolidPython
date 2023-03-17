@@ -105,13 +105,18 @@ def use(filename, skip_render=False):
 def include(filename, skip_render=False):
     load_scad_file_or_dir_into_dict(filename, get_callers_namespace_dict(), False, skip_render)
 
-def import_scad(filename, dest_namespace=None, use_not_include=True, skip_render=False):
-    if dest_namespace == None:
-        dest_namespace = ExpSolidNamespace(filename)
+def import_scad(filename, dest=None, use_not_include=True, skip_render=False):
+    if dest == None:
+        dest = ExpSolidNamespace(filename)
 
-    load_scad_file_or_dir_into_dict(filename, dest_namespace.__dict__, use_not_include, skip_render)
+    try:
+        dest = dest.__dict__
+    except AttributeError:
+        pass
 
-    return dest_namespace
+    load_scad_file_or_dir_into_dict(filename, dest, use_not_include, skip_render)
+
+    return dest
 
 # ========================
 # = our helper namespace =
