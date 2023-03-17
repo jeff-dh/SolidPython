@@ -99,11 +99,15 @@ def get_callers_namespace_dict(depth=2):
 
         return frame.f_globals
 
-def use(filename, skip_render=False):
-    load_scad_file_or_dir_into_dict(filename, get_callers_namespace_dict(), True, skip_render)
+def use(filename, skip_render=False, to_dict: Optional[dict]=None):
+    if to_dict is None:
+        to_dict = get_callers_namespace_dict()
+    load_scad_file_or_dir_into_dict(filename, to_dict, True, skip_render)
 
-def include(filename, skip_render=False):
-    load_scad_file_or_dir_into_dict(filename, get_callers_namespace_dict(), False, skip_render)
+def include(filename, skip_render=False, to_dict: Optional[dict]=None):
+    if to_dict is None:
+        to_dict = get_callers_namespace_dict()
+    load_scad_file_or_dir_into_dict(filename, to_dict, False, skip_render)
 
 def import_scad(filename, dest_namespace=None, use_not_include=True, skip_render=False):
     if dest_namespace == None:
