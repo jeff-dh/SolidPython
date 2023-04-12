@@ -1,0 +1,3 @@
+[submodule "solid2/libs/BOSL2"]
+	path = solid2/libs/BOSL2
+	url = git@github.com:revarbat/BOSL2.git
