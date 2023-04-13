@@ -16,6 +16,9 @@ keywords = [
     "modeling",
     "OpenSCAD",
 ]
+include = [
+    "solid2/extensions/bosl2/"
+]
 
 classifiers=[
     "Programming Language :: Python",
