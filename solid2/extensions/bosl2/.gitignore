@@ -1,0 +1,5 @@
+*
+!.gitignore
+!__init__.py
+!bosl2_base.py
+!bosl2_patches.py
