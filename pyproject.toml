@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "solidpython2"
-version = "2.0.1"
+version = "2.0.2"
 description = "Python interface to the OpenSCAD declarative geometry language"
 authors = ["jeff"]
 homepage = "https://github.com/jeff-dh/SolidPython"
