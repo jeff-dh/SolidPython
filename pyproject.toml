@@ -41,7 +41,6 @@ ply = "^3.11"
 setuptools = ">=65.6.3"
 
 [tool.poetry.build]
-generate-setup-file = false
 script = "prebuild.py"
 
 [build-system]
