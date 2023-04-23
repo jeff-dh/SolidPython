@@ -1,3 +1,4 @@
+import platform
 import unittest
 import shutil
 import subprocess
@@ -5,17 +6,15 @@ import re
 from pathlib import Path
 
 
-def get_openscad_executable():
-    import platform
-    OPENSCAD_EXECUTABLES = {
-        'Darwin': "/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD",
-        'Linux': "openscad"
-    }
-    return OPENSCAD_EXECUTABLES[platform.system()]
-
-
 class ExamplesTest(unittest.TestCase):
     def test_examples(self):
+        def get_openscad_executable():
+            OPENSCAD_EXECUTABLES = {
+                'Darwin': "/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD",
+                'Linux': "openscad"
+            }
+            return OPENSCAD_EXECUTABLES[platform.system()]
+
         root = Path(__file__).parent.parent
 
         for f in sorted(Path(root / "solid2" / "examples/").iterdir()):
