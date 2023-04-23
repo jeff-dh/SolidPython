@@ -1,8 +1,20 @@
+import platform
 import unittest
 import shutil
 import subprocess
 import re
 from pathlib import Path
+
+
+OPENSCAD_EXECUTABLES = {
+    'Darwin': "/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD",
+    'Linux': "openscad"
+}
+
+
+def get_openscad_executable():
+    return OPENSCAD_EXECUTABLES[platform.system()]
+
 
 class ExamplesTest(unittest.TestCase):
     def test_examples(self):
@@ -29,7 +41,7 @@ class ExamplesTest(unittest.TestCase):
             # make sure there's no diff
             self.assertEqual(diff.decode(), "")
             # render with openscad
-            subprocess.check_call(["openscad", "-o",
+            subprocess.check_call([get_openscad_executable(), "-o",
                                    test_scad_file.with_suffix(".png"),
                                    "--preview", "-",
                                    test_scad_file],
