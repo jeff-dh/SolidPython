@@ -1,4 +1,3 @@
-import platform
 import unittest
 import shutil
 import subprocess
@@ -6,13 +5,12 @@ import re
 from pathlib import Path
 
 
-OPENSCAD_EXECUTABLES = {
-    'Darwin': "/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD",
-    'Linux': "openscad"
-}
-
-
 def get_openscad_executable():
+    import platform
+    OPENSCAD_EXECUTABLES = {
+        'Darwin': "/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD",
+        'Linux': "openscad"
+    }
     return OPENSCAD_EXECUTABLES[platform.system()]
 
 
