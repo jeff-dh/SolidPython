@@ -6,10 +6,14 @@
 union() {
 	color(c = "red") {
 		//non sense comment
-		cube(size = 10);
+		color(c = "red") {
+			cube(size = 10);
+		}
 	}
 	//non sense comment
-	translate(v = [-20, 0, 0]) {
-		cube(size = 5);
+	translate(v = [0, 0, 1]) {
+		translate(v = [-1, 0, 0]) {
+			cube(size = 5);
+		}
 	}
 }

@@ -44,11 +44,21 @@ def non_sense_pre_render(root):
 # register the pre render extension.
 from solid2.core.extension_manager import default_extension_manager
 default_extension_manager.register_pre_render(non_sense_pre_render)
+
+# add an access syntax extension
+def leftUp(x):
+    return x.left(1).up(1)
+
+# register the access syntax extension
+default_extension_manager.register_access_syntax(leftUp)
+
+# register red as access syntax extension
+default_extension_manager.register_access_syntax(red)
 # ==============
 
 
-cube1 = cube(10)
-cube2 = cube(5).left(20)
+cube1 = cube(10).red()
+cube2 = cube(5).leftUp()
 
 commented_cube1 = non_sense_comment()(
                       cube1
