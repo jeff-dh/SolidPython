@@ -9,3 +9,4 @@ from .scad_import import import_scad, use, include
 
 from .object_base import scad_inline, scad_inline_parameter_func, sin, cos,\
                          tan, asin, acos, atan, sqrt, not_
+from .object_base.access_syntax_mixin import register
