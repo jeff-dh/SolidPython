@@ -70,3 +70,12 @@ class AccessSyntaxMixin:
     def root(self):       return builtins().root()(self)
     def disable(self):    return builtins().disable()(self)
 
+    def __getattr__(self, name):
+        #ask the extension manager for dynamic access syntax extensions
+        from ..extension_manager import default_extension_manager
+
+        fn = default_extension_manager.access_syntax_lookup(name)
+        if not fn:
+            raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
+
+        return lambda *args, **kwargs: fn(self, *args, **kwargs)

@@ -4,6 +4,7 @@ class ExtensionManager():
         self.wrapper = []
         self.pre_render = []
         self.post_render = []
+        self.access_syntax = {}
 
     def register_root_wrapper(self, ext):
         self.wrapper.append(ext)
@@ -13,6 +14,18 @@ class ExtensionManager():
 
     def register_post_render(self, func):
         self.post_render.append(func)
+
+    def register_access_syntax(self, fn):
+        import inspect
+        if fn.__name__ in self.access_syntax:
+            raise Exception(f'Unable to register "{fn.__name__}" plugin, it '
+                             'would overwrite an existing plugin or method.')
+
+        if inspect.isclass(fn):
+            self.access_syntax[fn.__name__] = \
+                lambda y, *args, **kwargs: fn(*args, **kwargs)(y)
+        else:
+            self.access_syntax[fn.__name__] = fn
 
     def wrap_root_node(self, root):
         new_root_node = root
@@ -36,6 +49,9 @@ class ExtensionManager():
             post_render_str += f(root)
 
         return post_render_str
+
+    def access_syntax_lookup(self, key):
+        return self.access_syntax.get(key, None)
 
 default_extension_manager = ExtensionManager()
 
