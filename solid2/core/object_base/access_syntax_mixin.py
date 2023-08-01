@@ -1,13 +1,10 @@
 from ...config import config
 
-
 def builtins():
     from .. import builtins
     return builtins
 
 class AccessSyntaxMixin:
-    plugins = {}
-
     if not config.use_implicit_builtins:
         def intersection_for(self, n):     return builtins().intersection_for(n)(self)
         def color(self, color, alpha=1.0): return builtins().color(color, alpha)(self)
@@ -73,19 +70,3 @@ class AccessSyntaxMixin:
     def root(self):       return builtins().root()(self)
     def disable(self):    return builtins().disable()(self)
 
-    def __getattr__(self, name):
-        if name in self.plugins:
-            # should we check that plugin returned a builtin type?
-            return lambda *args, **kwargs: self.plugins[name](self, *args, **kwargs)
-        raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
-
-def register(plugins):
-    # allow specifying a single plugin or a dictionary of plugins
-    if not isinstance(plugins, dict):
-        plugins = {plugins.__name__: plugins}
-
-    # register each plugin
-    for name in plugins:
-        if name in AccessSyntaxMixin.plugins or hasattr(AccessSyntaxMixin, name):
-            raise Exception(f'Unable to register "{name}" plugin, it would overwrite an existing plugin or method.')
-        AccessSyntaxMixin.plugins[name] = plugins[name]
