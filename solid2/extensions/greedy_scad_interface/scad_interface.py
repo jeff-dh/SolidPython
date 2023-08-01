@@ -1,43 +1,44 @@
 from solid2 import register_pre_render as _register_pre_render
-from .scad_variable import *
+from .scad_variable import ScadVariable as _ScadVariable,\
+                           ScadValue as _ScadValue
 
-fonts = []
+_fonts = []
 
 def register_font(filename):
-    fonts.append(filename)
+    _fonts.append(filename)
 
 def get_animation_time():
-    return ScadValue("$t")
+    return _ScadValue("$t")
 
 def set_global_fn(_fn):
-    ScadVariable("$fn", _fn)
+    _ScadVariable("$fn", _fn)
 
 def set_global_fa(_fa):
-    ScadVariable("$fa", _fa)
+    _ScadVariable("$fa", _fa)
 
 def set_global_fs(_fs):
-    ScadVariable("$fs", _fs)
+    _ScadVariable("$fs", _fs)
 
 def set_global_viewport_translation(trans):
-    ScadVariable("$vpt", trans)
+    _ScadVariable("$vpt", trans)
 
 def set_global_viewport_rotation(rot):
-    ScadVariable("$vpr", rot)
+    _ScadVariable("$vpr", rot)
 
 def set_global_viewport_fov(fov):
-    ScadVariable("$vpf", fov)
+    _ScadVariable("$vpf", fov)
 
 def set_global_viewport_distance(d):
-    ScadVariable("$vpd", d)
+    _ScadVariable("$vpd", d)
 
 def set_global_variable(var_name, value):
-    ScadVariable(var_name, value)
+    _ScadVariable(var_name, value)
 
 @_register_pre_render
 def _get_scad_header(_):
-    base_str = "\n".join([f"use <{f}>" for f in fonts])
+    base_str = "\n".join([f"use <{f}>" for f in _fonts])
     base_str += "\n\n"
-    base_str += "\n".join(ScadVariable.registered_variables.values())
+    base_str += "\n".join(_ScadVariable.registered_variables.values())
 
     return base_str + "\n"
 
