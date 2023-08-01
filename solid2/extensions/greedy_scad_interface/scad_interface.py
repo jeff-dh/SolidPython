@@ -1,3 +1,4 @@
+from solid2 import register_pre_render as _register_pre_render
 from .scad_variable import *
 
 fonts = []
@@ -32,7 +33,8 @@ def set_global_viewport_distance(d):
 def set_global_variable(var_name, value):
     ScadVariable(var_name, value)
 
-def get_scad_header():
+@_register_pre_render
+def _get_scad_header(_):
     base_str = "\n".join([f"use <{f}>" for f in fonts])
     base_str += "\n\n"
     base_str += "\n".join(ScadVariable.registered_variables.values())
