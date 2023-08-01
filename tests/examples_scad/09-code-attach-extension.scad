@@ -20,6 +20,10 @@ from solid2 import *
 #
 # If you like this, you can simply import this extension that should do it.
 #
+# register the post_render extension using the decorator. This hooks it into
+# the "_render" routine. It will be called after the root gets rendered. It's
+# return string will be appended to the rendered string.
+@register_post_render
 def attach_code_post_render(root):
     #find the "root" file
     calling_file = None
@@ -46,12 +50,6 @@ def attach_code_post_render(root):
         # return the string to be appended to the *.scad file
         return f'/_* Generated from the following ExpSolid code:\n\n' +\
                f'{code_str}*_/'
-
-# register the post_render extension. This hooks it into the "_render" routine.
-# It will be called after the root gets rendered. It's return string will be
-# appended to the rendered string.
-from solid2.core.extension_manager import default_extension_manager
-default_extension_manager.register_post_render(attach_code_post_render)
 
 # =============
 
