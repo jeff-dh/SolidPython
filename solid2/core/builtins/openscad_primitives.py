@@ -1,24 +1,26 @@
-from ..object_base import OpenSCADObject
+from ..object_base import OpenSCADObject as _OpenSCADObject
 
-from pathlib import Path
-from typing import Sequence, Tuple, Union
+from pathlib import Path as _Path
+from typing import Sequence as _Sequence,\
+                   Tuple as _Tuple,\
+                   Union as _Union
 
-PathStr = Union[Path, str]
+PathStr = _Union[_Path, str]
 
-P2 = Tuple[float, float]
-P3 = Tuple[float, float, float]
-P4 = Tuple[float, float, float, float]
+P2 = _Tuple[float, float]
+P3 = _Tuple[float, float, float]
+P4 = _Tuple[float, float, float, float]
 Vec3 = P3
 Vec4 = P4
-Vec34 = Union[Vec3, Vec4]
-P3s = Sequence[P3]
-P23 = Union[P2, P3]
-Points = Sequence[P23]
-Indexes = Union[Sequence[int], Sequence[Sequence[int]]]
-ScadSize = Union[int, Sequence[float]]
-OpenSCADObjectPlus = Union[OpenSCADObject, Sequence[OpenSCADObject]]
+Vec34 = _Union[Vec3, Vec4]
+P3s = _Sequence[P3]
+P23 = _Union[P2, P3]
+Points = _Sequence[P23]
+Indexes = _Union[_Sequence[int], _Sequence[_Sequence[int]]]
+ScadSize = _Union[int, _Sequence[float]]
+OpenSCADObjectPlus = _Union[_OpenSCADObject, _Sequence[_OpenSCADObject]]
 
-class polygon(OpenSCADObject):
+class polygon(_OpenSCADObject):
     """
     Create a polygon with the specified points and paths.
 
@@ -38,11 +40,11 @@ class polygon(OpenSCADObject):
     to 2D before compiling
     """
 
-    def __init__(self, points: Union[Points, OpenSCADObject], paths: Indexes = None, convexity: int = None) -> None:
+    def __init__(self, points: _Union[Points, _OpenSCADObject], paths: Indexes = None, convexity: int = None) -> None:
         # Force points to 2D if they're defined in Python, pass through if they're
         # included OpenSCAD code
         pts = points # type: ignore
-        if not isinstance(points, OpenSCADObject):
+        if not isinstance(points, _OpenSCADObject):
             pts = list([(p[0], p[1]) for p in points]) # type: ignore
 
         args = {'points':pts, 'convexity':convexity}
@@ -52,7 +54,7 @@ class polygon(OpenSCADObject):
         super().__init__('polygon', args)
 
 
-class circle(OpenSCADObject):
+class circle(_OpenSCADObject):
     """
     Creates a circle at the origin of the coordinate system. The argument
     name is optional.
@@ -72,7 +74,7 @@ class circle(OpenSCADObject):
                          {'r': r, 'd': d, '_fn': _fn})
 
 
-class square(OpenSCADObject):
+class square(_OpenSCADObject):
     """
     Creates a square at the origin of the coordinate system. When center is
     True the square will be centered on the origin, otherwise it is created
@@ -95,7 +97,7 @@ class square(OpenSCADObject):
                          {'size': size, 'center': center})
 
 
-class sphere(OpenSCADObject):
+class sphere(_OpenSCADObject):
     """
     Creates a sphere at the origin of the coordinate system. The argument
     name is optional.
@@ -115,7 +117,7 @@ class sphere(OpenSCADObject):
                          {'r': r, 'd': d, '_fn': _fn})
 
 
-class cube(OpenSCADObject):
+class cube(_OpenSCADObject):
     """
     Creates a cube at the origin of the coordinate system. When center is
     True the cube will be centered on the origin, otherwise it is created in
@@ -138,7 +140,7 @@ class cube(OpenSCADObject):
                          {'size': size, 'center': center})
 
 
-class cylinder(OpenSCADObject):
+class cylinder(_OpenSCADObject):
     """
     Creates a cylinder or cone at the origin of the coordinate system. A
     single radius (r) makes a cylinder, two different radii (r1, r2) make a
@@ -185,7 +187,7 @@ class cylinder(OpenSCADObject):
                           '_fn': _fn})
 
 
-class polyhedron(OpenSCADObject):
+class polyhedron(_OpenSCADObject):
     """
     Create a polyhedron with a list of points and a list of faces. The point
     list is all the vertices of the shape, the faces list is how the points
@@ -220,7 +222,7 @@ class polyhedron(OpenSCADObject):
                           'triangles': triangles})
 
 
-class union(OpenSCADObject):
+class union(_OpenSCADObject):
     """
     Creates a union of all its child nodes. This is the **sum** of all
     children.
@@ -230,7 +232,7 @@ class union(OpenSCADObject):
         super().__init__('union', {})
 
 
-class intersection(OpenSCADObject):
+class intersection(_OpenSCADObject):
     """
     Creates the intersection of all child nodes. This keeps the
     **overlapping** portion
@@ -240,7 +242,7 @@ class intersection(OpenSCADObject):
         super().__init__('intersection', {})
 
 
-class difference(OpenSCADObject):
+class difference(_OpenSCADObject):
     """
     Subtracts the 2nd (and all further) child nodes from the first one.
     """
@@ -249,7 +251,7 @@ class difference(OpenSCADObject):
         super().__init__('difference', {})
 
 
-class translate(OpenSCADObject):
+class translate(_OpenSCADObject):
     """
     Translates (moves) its child elements along the specified vector.
 
@@ -261,7 +263,7 @@ class translate(OpenSCADObject):
         super().__init__('translate', {'v': v})
 
 
-class scale(OpenSCADObject):
+class scale(_OpenSCADObject):
     """
     Scales its child elements using the specified vector.
 
@@ -273,7 +275,7 @@ class scale(OpenSCADObject):
         super().__init__('scale', {'v': v})
 
 
-class rotate(OpenSCADObject):
+class rotate(_OpenSCADObject):
     """
     Rotates its child 'a' degrees about the origin of the coordinate system
     or around an arbitrary axis.
@@ -285,11 +287,11 @@ class rotate(OpenSCADObject):
     :type v: 3 value sequence
     """
 
-    def __init__(self, a: Union[float, Vec3] = None, v: Vec3 = None) -> None:
+    def __init__(self, a: _Union[float, Vec3] = None, v: Vec3 = None) -> None:
         super().__init__('rotate', {'a': a, 'v': v})
 
 
-class mirror(OpenSCADObject):
+class mirror(_OpenSCADObject):
     """
     Mirrors the child element on a plane through the origin.
 
@@ -302,7 +304,7 @@ class mirror(OpenSCADObject):
         super().__init__('mirror', {'v': v})
 
 
-class resize(OpenSCADObject):
+class resize(_OpenSCADObject):
     """
     Modify the size of the child object to match the given new size.
 
@@ -313,11 +315,11 @@ class resize(OpenSCADObject):
     :type auto: 3 boolean sequence
     """
 
-    def __init__(self, newsize: Vec3, auto: Tuple[bool, bool, bool] = None) -> None:
+    def __init__(self, newsize: Vec3, auto: _Tuple[bool, bool, bool] = None) -> None:
         super().__init__('resize', {'newsize': newsize, 'auto': auto})
 
 
-class multmatrix(OpenSCADObject):
+class multmatrix(_OpenSCADObject):
     """
     Multiplies the geometry of all child elements with the given 4x4
     transformation matrix.
@@ -326,11 +328,11 @@ class multmatrix(OpenSCADObject):
     :type m: sequence of 4 sequences, each containing 4 numbers.
     """
 
-    def __init__(self, m: Tuple[Vec4, Vec4, Vec4, Vec4]) -> None:
+    def __init__(self, m: _Tuple[Vec4, Vec4, Vec4, Vec4]) -> None:
         super().__init__('multmatrix', {'m': m})
 
 
-class color(OpenSCADObject):
+class color(_OpenSCADObject):
     """
     Displays the child elements using the specified RGB color + alpha value.
     This is only used for the F5 preview as CGAL and STL (F6) do not
@@ -344,11 +346,11 @@ class color(OpenSCADObject):
     :type alpha: float
     """
 
-    def __init__(self, c: Union[Vec34, str], alpha: float = 1.0) -> None:
+    def __init__(self, c: _Union[Vec34, str], alpha: float = 1.0) -> None:
         super().__init__('color', {'c': c, 'alpha': alpha})
 
 
-class minkowski(OpenSCADObject):
+class minkowski(_OpenSCADObject):
     """
     Renders the `minkowski
     sum <http://www.cgal.org/Manual/latest/doc_html/cgal_manual/Minkowski_sum_3/Chapter_main.html>`__
@@ -359,7 +361,7 @@ class minkowski(OpenSCADObject):
         super().__init__('minkowski', {})
 
 
-class offset(OpenSCADObject):
+class offset(_OpenSCADObject):
     """
 
     :param r: Amount to offset the polygon (rounded corners). When negative,
@@ -394,7 +396,7 @@ class offset(OpenSCADObject):
         super().__init__('offset', kwargs)
 
 
-class hull(OpenSCADObject):
+class hull(_OpenSCADObject):
     """
     Renders the `convex
     hull <http://www.cgal.org/Manual/latest/doc_html/cgal_manual/Convex_hull_2/Chapter_main.html>`__
@@ -405,7 +407,7 @@ class hull(OpenSCADObject):
         super().__init__('hull', {})
 
 
-class render(OpenSCADObject):
+class render(_OpenSCADObject):
     """
     Always calculate the CSG model for this tree (even in OpenCSG preview
     mode).
@@ -418,7 +420,7 @@ class render(OpenSCADObject):
         super().__init__('render', {'convexity': convexity})
 
 
-class linear_extrude(OpenSCADObject):
+class linear_extrude(_OpenSCADObject):
     """
     Linear Extrusion is a modeling operation that takes a 2D polygon as
     input and extends it in the third dimension. This way a 3D shape is
@@ -457,7 +459,7 @@ class linear_extrude(OpenSCADObject):
                           'slices': slices, 'scale': scale})
 
 
-class rotate_extrude(OpenSCADObject):
+class rotate_extrude(_OpenSCADObject):
     """
     A rotational extrusion is a Linear Extrusion with a twist, literally.
     Unfortunately, it can not be used to produce a helix for screw threads
@@ -493,18 +495,18 @@ class rotate_extrude(OpenSCADObject):
                           'convexity': convexity})
 
 
-class dxf_linear_extrude(OpenSCADObject):
+class dxf_linear_extrude(_OpenSCADObject):
     def __init__(self, file: PathStr, layer: float = None, height: float = None,
                  center: bool = None, convexity: int = None, twist: float = None,
                  slices: int = None) -> None:
         super().__init__('dxf_linear_extrude',
-                         {'file': Path(file).as_posix(), 'layer': layer,
+                         {'file': _Path(file).as_posix(), 'layer': layer,
                           'height': height, 'center': center,
                           'convexity': convexity, 'twist': twist,
                           'slices': slices})
 
 
-class projection(OpenSCADObject):
+class projection(_OpenSCADObject):
     """
     Creates 2d shapes from 3d models, and export them to the dxf format.
     It works by projecting a 3D model to the (x,y) plane, with z at 0.
@@ -519,7 +521,7 @@ class projection(OpenSCADObject):
         super().__init__('projection', {'cut': cut})
 
 
-class surface(OpenSCADObject):
+class surface(_OpenSCADObject):
     """
     Surface reads information from text or image files.
 
@@ -549,7 +551,7 @@ class surface(OpenSCADObject):
                           'convexity': convexity, 'invert': invert})
 
 
-class text(OpenSCADObject):
+class text(_OpenSCADObject):
     """
     Create text using fonts installed on the local system or provided as separate
     font file.
@@ -609,14 +611,14 @@ class text(OpenSCADObject):
                           '_fn': _fn})
 
 
-class child(OpenSCADObject):
-    def __init__(self, index: int = None, vector: Sequence[int] = None, range=None) -> None:
+class child(_OpenSCADObject):
+    def __init__(self, index: int = None, vector: _Sequence[int] = None, range=None) -> None:
         super().__init__('child',
                          {'index': index, 'vector': vector,
                           'range': range})
 
 
-class children(OpenSCADObject):
+class children(_OpenSCADObject):
     """
     The child nodes of the module instantiation can be accessed using the
     children() statement within the module. The number of module children
@@ -639,21 +641,21 @@ class children(OpenSCADObject):
                           'range': range})
 
 
-class import_stl(OpenSCADObject):
+class import_stl(_OpenSCADObject):
     def __init__(self, file: PathStr, origin: P2 = (0, 0), convexity: int = None, layer: int = None) -> None:
         super().__init__('import',
-                         {'file': Path(file).as_posix(), 'origin': origin,
+                         {'file': _Path(file).as_posix(), 'origin': origin,
                           'convexity': convexity, 'layer': layer})
 
 
-class import_dxf(OpenSCADObject):
+class import_dxf(_OpenSCADObject):
     def __init__(self, file, origin=(0, 0), convexity: int = None, layer: int = None) -> None:
         super().__init__('import',
                          {'file': file, 'origin': origin,
                           'convexity': convexity, 'layer': layer})
 
 
-class import_(OpenSCADObject):
+class import_(_OpenSCADObject):
     """
     Imports a file for use in the current OpenSCAD model. OpenSCAD currently
     supports import of DXF and STL (both ASCII and Binary) files.
@@ -670,13 +672,13 @@ class import_(OpenSCADObject):
 
     def __init__(self, file: PathStr, origin: P2 = (0, 0), convexity: int = None, layer: int = None) -> None:
         super().__init__('import',
-                         {'file': Path(file).as_posix(), 'origin': origin,
+                         {'file': _Path(file).as_posix(), 'origin': origin,
                           'convexity': convexity, 'layer': layer})
 
 class _import(import_): pass
 
 
-class intersection_for(OpenSCADObject):
+class intersection_for(_OpenSCADObject):
     """
     Iterate over the values in a vector or range and take an
     intersection of the contents.

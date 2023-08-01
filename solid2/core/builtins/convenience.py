@@ -1,29 +1,31 @@
-from ...config import config
-from ..object_base import ObjectBase, OperatorMixin, AccessSyntaxMixin
+from ...config import config as _config
+from ..object_base import ObjectBase as _ObjectBase,\
+                          OperatorMixin as _OperatorMixin,\
+                          AccessSyntaxMixin as _AccessSyntaxMixin
 from .primitives import *
 
 # =============
 # = modifiers =
 # =============
-class ModifierBase(ObjectBase, OperatorMixin, AccessSyntaxMixin):
+class _ModifierBase(_ObjectBase, _OperatorMixin, _AccessSyntaxMixin):
     def __init__(self, child=None):
         super().__init__()
         if child:
             self._children += [child]
 
-class debug(ModifierBase):
+class debug(_ModifierBase):
     def _render(self):
         return "#" + super()._render()
 
-class background(ModifierBase):
+class background(_ModifierBase):
     def _render(self):
         return "%" + super()._render()
 
-class root(ModifierBase):
+class root(_ModifierBase):
     def _render(self):
         return "!" + super()._render()
 
-class disable(ModifierBase):
+class disable(_ModifierBase):
     def _render(self):
         return "*" + super()._render()
 
@@ -50,7 +52,7 @@ def scaleX(x): return scale((x, 1, 1))
 def scaleY(y): return scale((1, y, 1))
 def scaleZ(z): return scale((1, 1, z))
 
-if not config.use_implicit_builtins:
+if not _config.use_implicit_builtins:
     def resizeX(x): return resize((x, 0, 0))
     def resizeY(y): return resize((0, y, 0))
     def resizeZ(z): return resize((0, 0, z))
@@ -71,7 +73,7 @@ if not config.use_implicit_builtins:
     translate([1, 2, 3])  ->   translate(1, 2, 3)
     rotate([1, 2, 3])   -> rotate(1, 2, 3)
 """
-def extract_size_list(size_count, *args):
+def _extract_size_list(size_count, *args):
     if len(args) <= 1:
         return args
 
@@ -91,39 +93,39 @@ def extract_size_list(size_count, *args):
     else:
         return size_list + args_copy
 
-orig_translate = translate
+_orig_translate = translate
 def translate(*args, **kwargs):
-    args = extract_size_list(3, *args)
-    return orig_translate(*args, **kwargs)
+    args = _extract_size_list(3, *args)
+    return _orig_translate(*args, **kwargs)
 
-orig_scale = scale
+_orig_scale = scale
 def scale(*args, **kwargs):
-    args = extract_size_list(3, *args)
-    return orig_scale(*args, **kwargs)
+    args = _extract_size_list(3, *args)
+    return _orig_scale(*args, **kwargs)
 
-orig_rotate = rotate
+_orig_rotate = rotate
 def rotate(*args, **kwargs):
-    args = extract_size_list(3, *args)
-    return orig_rotate(*args, **kwargs)
+    args = _extract_size_list(3, *args)
+    return _orig_rotate(*args, **kwargs)
 
-orig_square = square
+_orig_square = square
 def square(*args, **kwargs):
-    args = extract_size_list(2, *args)
-    return orig_square(*args, **kwargs)
+    args = _extract_size_list(2, *args)
+    return _orig_square(*args, **kwargs)
 
-orig_cube = cube
+_orig_cube = cube
 def cube(*args, **kwargs):
-    args = extract_size_list(3, *args)
-    return orig_cube(*args, **kwargs)
+    args = _extract_size_list(3, *args)
+    return _orig_cube(*args, **kwargs)
 
-if not config.use_implicit_builtins:
-    orig_resize = resize
+if not _config.use_implicit_builtins:
+    _orig_resize = resize
     def resize(*args, **kwargs):
-        args = extract_size_list(3, *args)
-        return orig_resize(*args, **kwargs)
+        args = _extract_size_list(3, *args)
+        return _orig_resize(*args, **kwargs)
 
-    orig_mirror = mirror
+    _orig_mirror = mirror
     def mirror(*args, **kwargs):
-        args = extract_size_list(3, *args)
-        return orig_mirror(*args, **kwargs)
+        args = _extract_size_list(3, *args)
+        return _orig_mirror(*args, **kwargs)
 

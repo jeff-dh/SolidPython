@@ -1,6 +1,8 @@
 #! /usr/bin/env python
 
 from solid2 import *
+from solid2.core.object_base import OpenSCADObject, ObjectBase,\
+                                    AccessSyntaxMixin, OperatorMixin
 
 # ==============
 # = Extensions =
