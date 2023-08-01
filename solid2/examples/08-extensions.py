@@ -1,7 +1,6 @@
 #! /usr/bin/env python
 
 from solid2 import *
-from solid2.core.object_base import OpenSCADObject, ObjectBase
 
 # ==============
 # = Extensions =
@@ -9,7 +8,14 @@ from solid2.core.object_base import OpenSCADObject, ObjectBase
 # expsolid is extendable through extensions. This (and the next) example show
 # some usage of it.
 
+# add a simple functions as access syntax extension
+@register_access_syntax
+def leftUp(x):
+    return x.left(1).up(1)
+
 # create a custom OpenSCADObject that maps to color(c="red")
+# and register it as access syntax extension
+@register_access_syntax
 class red(OpenSCADObject):
     def __init__(self):
         super().__init__(name="color", params={"c" : "red"})
@@ -18,7 +24,8 @@ class red(OpenSCADObject):
 # "low-level" access if you don't want the typical OpenSCAD
 # call(params)(children) syntax. For example the debug,background,.... modifiers
 # are implemented like this (see core/builtins.py)
-class non_sense_comment(ObjectBase):
+@register_access_syntax
+class non_sense_comment(ObjectBase, AccessSyntaxMixin, OperatorMixin):
     def _render(self):
         return "//non sense comment\n" + super()._render()
 
@@ -26,6 +33,7 @@ class non_sense_comment(ObjectBase):
 # called before the root node gets rendered. As a result you should(!) even be
 # able to manipulate the whole tree (this is untested!), but at least to extract
 # information from it, process it and use it to generate header contents
+@register_pre_render
 def non_sense_pre_render(root):
 
     def count_nense_recursive(node):
@@ -41,52 +49,42 @@ def non_sense_pre_render(root):
     count = count_nense_recursive(root)
     return f"//the root tree contains {count} non sense comment(s)\n"
 
-# register the pre render extension.
-from solid2.core.extension_manager import default_extension_manager
-default_extension_manager.register_pre_render(non_sense_pre_render)
-
-# add an access syntax extension
-def leftUp(x):
-    return x.left(1).up(1)
-
-# register the access syntax extension
-default_extension_manager.register_access_syntax(leftUp)
-
-# register red as access syntax extension
-default_extension_manager.register_access_syntax(red)
 # ==============
 
+# old school syntax
+cube1 = non_sense_comment()(
+            red()(
+                leftUp(
+                    cube(10)
+                )
+            )
+        )
 
-cube1 = cube(10).red()
-cube2 = cube(5).leftUp()
+# access style syntax
+cube2 = cube(5).leftUp().red().non_sense_comment()
 
-commented_cube1 = non_sense_comment()(
-                      cube1
-                  )
-# OpenSCAD-style syntax:
-red_commented_cube1 = red()(
-                          commented_cube1
-                      )
-
-commented_cube2 = non_sense_comment()(
-                        cube2
-                    )
-
-scene = red_commented_cube1 + commented_cube2
-scene.save_as_scad()
+(cube1 + cube2).save_as_scad()
 
 # This generates the following output:
 #
 #
-#     //the root tree contains 2 non sense comment(s)
+# //the root tree contains 2 non sense comment(s)
 #
-#     union() {
+# union() {
+#         //non sense comment
 #         color(c = "red") {
-#             //non sense comment
-#             cube(size = 10);
+#                 translate(v = [0, 0, 1]) {
+#                         translate(v = [-1, 0, 0]) {
+#                                 cube(size = 10);
+#                         }
+#                 }
 #         }
 #         //non sense comment
-#         translate(v = [-20, 0, 0]) {
-#             cube(size = 5);
+#         color(c = "red") {
+#                 translate(v = [0, 0, 1]) {
+#                         translate(v = [-1, 0, 0]) {
+#                                 cube(size = 5);
+#                         }
+#                 }
 #         }
-#     }
+# }
