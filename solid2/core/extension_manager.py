@@ -55,3 +55,20 @@ class ExtensionManager():
 
 default_extension_manager = ExtensionManager()
 
+# expose register functions as decorators / global functions
+def register_access_syntax(fn):
+    default_extension_manager.register_access_syntax(fn)
+    return fn
+
+def register_pre_render(fn):
+    default_extension_manager.register_pre_render(fn)
+    return fn
+
+def register_post_render(fn):
+    default_extension_manager.register_post_render(fn)
+    return fn
+
+def register_root_wrapper(fn):
+    default_extension_manager.register_root_wrapper(fn)
+    return fn
+
