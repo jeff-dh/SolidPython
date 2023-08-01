@@ -10,8 +10,8 @@ from solid2 import *
 
 # add a simple functions as access syntax extension
 @register_access_syntax
-def leftUp(x):
-    return x.left(1).up(1)
+def leftUp(obj, x=1):
+    return obj.left(x).up(x)
 
 # create a custom OpenSCADObject that maps to color(c="red")
 # and register it as access syntax extension
@@ -61,7 +61,7 @@ cube1 = non_sense_comment()(
         )
 
 # access style syntax
-cube2 = cube(5).leftUp().red().non_sense_comment()
+cube2 = cube(5).leftUp(3).red().non_sense_comment()
 
 (cube1 + cube2).save_as_scad()
 
