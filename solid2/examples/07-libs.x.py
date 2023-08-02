@@ -8,13 +8,11 @@ from solid2 import *
 #
 # NOTE: you can import any *.scad file not only "libraries"
 
-#import bosl.metric_screw and wrap it in a simple namespace
-from types import SimpleNamespace
-bosl = SimpleNamespace()
-bosl.metric_screws = import_scad("BOSL/metric_screws.scad")
+#import bosl.metric_screw
+metric_screws = import_scad("BOSL/metric_screws.scad")
 
 #use it to generate a metric screw
-screw = bosl.metric_screws.metric_bolt(size=6, headtype='hex', l=20)
+screw = metric_screws.metric_bolt(size=6, headtype='hex', l=20)
 
 screw.save_as_scad()
 
