@@ -68,7 +68,7 @@ class OperatorMixin:
         return self._union_op(x, union)
     def __radd__(self, x):
         from ..builtins import union
-        return self._union_op(x, union)
+        return union()(x)._union_op(self, union)
     def __sub__(self, x):
         from ..builtins import difference
         return self._difference_op(x, difference)
