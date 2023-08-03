@@ -149,15 +149,20 @@ class cylinder(_OpenSCADObject):
     :param h: This is the height of the cylinder. Default value is 1.
     :type h: number
 
-    :param r: The radius of both top and bottom ends of the cylinder. Use this
-    parameter if you want plain cylinder. Default value is 1.
-    :type r: number
-
     :param r1: This is the radius of the cone on bottom end. Default value is 1.
     :type r1: number
 
     :param r2: This is the radius of the cone on top end. Default value is 1.
     :type r2: number
+
+    :param center: If True will center the height of the cone/cylinder around
+    the origin. Default is False, placing the base of the cylinder or r1 radius
+    of cone at the origin.
+    :type center: boolean
+
+    :param r: The radius of both top and bottom ends of the cylinder. Use this
+    parameter if you want plain cylinder. Default value is 1.
+    :type r: number
 
     :param d: The diameter of both top and bottom ends of the cylinder.  Use t
     his parameter if you want plain cylinder. Default value is 1.
@@ -169,22 +174,17 @@ class cylinder(_OpenSCADObject):
     :param d2: This is the diameter of the cone on top end. Default value is 1.
     :type d2: number
 
-    :param center: If True will center the height of the cone/cylinder around
-    the origin. Default is False, placing the base of the cylinder or r1 radius
-    of cone at the origin.
-    :type center: boolean
-
     :param _fn: Number of fragments in 360 degrees.
     :type _fn: int
     """
 
-    def __init__(self, r: float = None, h: float = None, r1: float = None, r2: float = None,
-                 d: float = None, d1: float = None, d2: float = None, center: bool = None,
-                 _fn: int = None) -> None:
+    def __init__(self, h: float = None, r1: float = None, r2: float = None,
+                 center: bool = None, r: float = None, d: float = None, d1:
+                 float = None, d2: float = None, _fn: int
+                 = None) -> None:
         super().__init__('cylinder',
-                         {'r': r, 'h': h, 'r1': r1, 'r2': r2, 'd': d,
-                          'd1': d1, 'd2': d2, 'center': center,
-                          '_fn': _fn})
+                         {'h': h, 'r1': r1, 'r2': r2, 'center': center, 'r': r,
+                          'd': d, 'd1': d1, 'd2': d2, '_fn': _fn})
 
 
 class polyhedron(_OpenSCADObject):
