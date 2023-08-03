@@ -5,4 +5,4 @@ if _config.use_implicit_builtins:
 
 from .std import *
 
-from .bosl2_patches import __nothing__
+from .bosl2_patches import cylinder
