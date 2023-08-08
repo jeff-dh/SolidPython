@@ -23,13 +23,13 @@ attachable.add = attachable_add
 # overwrite bosl2.shapes3d.cylinder to cover up a bug in
 # solid2.core.builtins.cylinder
 # unfortunately builtins.cylinder has a wrong (according to the docs) order of
-# parameters and thus differes from the bosl2 implementation. To achieve
+# parameters and thus differs from the bosl2 implementation. To achieve
 # consistency without creating major backwards compatibility issues, this hack
 # is implemented to adjust the bosl2.cylinder according to the buggy
 # builtins.cylinder.
 class cylinder(_Bosl2Base):
-    def __init__(self, h=None, r=None, r1=None, r2=None, center=None, d=None,
-                 d1=None, d2=None, anchor=None, spin=None, orient=None,
+    def __init__(self, r=None, h=None, r1=None, r2=None, d=None, d1=None,
+                 d2=None, center=None, anchor=None, spin=None, orient=None,
                  **kwargs):
         super().__init__("cylinder", {"h" : h, "r1" : r1, "r2" : r2, "center" :
                                       center, "r" : r, "d" : d, "d1" : d1, "d2"
