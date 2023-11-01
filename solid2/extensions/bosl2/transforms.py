@@ -52,8 +52,8 @@ class zmove(_Bosl2Base):
        super().__init__("zmove", {"z" : z, "p" : p, **kwargs})
 
 class rot(_Bosl2Base):
-    def __init__(self, a=None, v=None, cp=None, _from=None, to=None, reverse=None, p=None, _m=None, **kwargs):
-       super().__init__("rot", {"a" : a, "v" : v, "cp" : cp, "_from" : _from, "to" : to, "reverse" : reverse, "p" : p, "_m" : _m, **kwargs})
+    def __init__(self, a=None, v=None, cp=None, _from=None, to=None, reverse=None, p=None, **kwargs):
+       super().__init__("rot", {"a" : a, "v" : v, "cp" : cp, "_from" : _from, "to" : to, "reverse" : reverse, "p" : p, **kwargs})
 
 class xrot(_Bosl2Base):
     def __init__(self, a=None, p=None, cp=None, **kwargs):
@@ -66,6 +66,10 @@ class yrot(_Bosl2Base):
 class zrot(_Bosl2Base):
     def __init__(self, a=None, p=None, cp=None, **kwargs):
        super().__init__("zrot", {"a" : a, "p" : p, "cp" : cp, **kwargs})
+
+class tilt(_Bosl2Base):
+    def __init__(self, to=None, cp=None, reverse=None, p=None, **kwargs):
+       super().__init__("tilt", {"to" : to, "cp" : cp, "reverse" : reverse, "p" : p, **kwargs})
 
 class scale(_Bosl2Base):
     def __init__(self, v=None, p=None, cp=None, **kwargs):
@@ -174,6 +178,10 @@ class yrot(_Bosl2Base):
 class zrot(_Bosl2Base):
     def __init__(self, a=None, p=None, cp=None, **kwargs):
        super().__init__("zrot", {"a" : a, "p" : p, "cp" : cp, **kwargs})
+
+class tilt(_Bosl2Base):
+    def __init__(self, to=None, cp=None, reverse=None, **kwargs):
+       super().__init__("tilt", {"to" : to, "cp" : cp, "reverse" : reverse, **kwargs})
 
 class xscale(_Bosl2Base):
     def __init__(self, x=None, p=None, cp=None, **kwargs):

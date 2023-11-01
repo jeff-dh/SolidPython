@@ -62,6 +62,14 @@ class lcm(_Bosl2Base):
     def __init__(self, a=None, b=None, **kwargs):
        super().__init__("lcm", {"a" : a, "b" : b, **kwargs})
 
+class rational_approx(_Bosl2Base):
+    def __init__(self, x=None, maxq=None, cfrac=None, p=None, q=None, **kwargs):
+       super().__init__("rational_approx", {"x" : x, "maxq" : maxq, "cfrac" : cfrac, "p" : p, "q" : q, **kwargs})
+
+class _cfrac_to_pq(_Bosl2Base):
+    def __init__(self, cfrac=None, p=None, q=None, ind=None, **kwargs):
+       super().__init__("_cfrac_to_pq", {"cfrac" : cfrac, "p" : p, "q" : q, "ind" : ind, **kwargs})
+
 class sinh(_Bosl2Base):
     def __init__(self, x=None, **kwargs):
        super().__init__("sinh", {"x" : x, **kwargs})
@@ -159,12 +167,12 @@ class _product(_Bosl2Base):
        super().__init__("_product", {"v" : v, "i" : i, "_tot" : _tot, **kwargs})
 
 class cumprod(_Bosl2Base):
-    def __init__(self, list=None, **kwargs):
-       super().__init__("cumprod", {"list" : list, **kwargs})
+    def __init__(self, list=None, right=None, **kwargs):
+       super().__init__("cumprod", {"list" : list, "right" : right, **kwargs})
 
 class _cumprod(_Bosl2Base):
-    def __init__(self, v=None, _i=None, _acc=None, **kwargs):
-       super().__init__("_cumprod", {"v" : v, "_i" : _i, "_acc" : _acc, **kwargs})
+    def __init__(self, v=None, right=None, _i=None, _acc=None, **kwargs):
+       super().__init__("_cumprod", {"v" : v, "right" : right, "_i" : _i, "_acc" : _acc, **kwargs})
 
 class _cumprod_vec(_Bosl2Base):
     def __init__(self, v=None, _i=None, _acc=None, **kwargs):

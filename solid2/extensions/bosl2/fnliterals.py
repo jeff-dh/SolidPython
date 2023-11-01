@@ -295,48 +295,48 @@ class f_cross(_Bosl2Base):
        super().__init__("f_cross", {"a" : a, "b" : b, **kwargs})
 
 class f_is_def(_Bosl2Base):
-    def __init__(self, x=None, **kwargs):
-       super().__init__("f_is_def", {"x" : x, **kwargs})
+    def __init__(self, a=None, **kwargs):
+       super().__init__("f_is_def", {"a" : a, **kwargs})
 
 class f_is_undef(_Bosl2Base):
-    def __init__(self, x=None, **kwargs):
-       super().__init__("f_is_undef", {"x" : x, **kwargs})
+    def __init__(self, a=None, **kwargs):
+       super().__init__("f_is_undef", {"a" : a, **kwargs})
 
 class f_is_bool(_Bosl2Base):
-    def __init__(self, x=None, **kwargs):
-       super().__init__("f_is_bool", {"x" : x, **kwargs})
+    def __init__(self, a=None, **kwargs):
+       super().__init__("f_is_bool", {"a" : a, **kwargs})
 
 class f_is_num(_Bosl2Base):
-    def __init__(self, x=None, **kwargs):
-       super().__init__("f_is_num", {"x" : x, **kwargs})
+    def __init__(self, a=None, **kwargs):
+       super().__init__("f_is_num", {"a" : a, **kwargs})
 
 class f_is_int(_Bosl2Base):
-    def __init__(self, x=None, **kwargs):
-       super().__init__("f_is_int", {"x" : x, **kwargs})
+    def __init__(self, a=None, **kwargs):
+       super().__init__("f_is_int", {"a" : a, **kwargs})
 
 class f_is_nan(_Bosl2Base):
-    def __init__(self, x=None, **kwargs):
-       super().__init__("f_is_nan", {"x" : x, **kwargs})
+    def __init__(self, a=None, **kwargs):
+       super().__init__("f_is_nan", {"a" : a, **kwargs})
 
 class f_is_finite(_Bosl2Base):
-    def __init__(self, x=None, **kwargs):
-       super().__init__("f_is_finite", {"x" : x, **kwargs})
+    def __init__(self, a=None, **kwargs):
+       super().__init__("f_is_finite", {"a" : a, **kwargs})
 
 class f_is_string(_Bosl2Base):
-    def __init__(self, x=None, **kwargs):
-       super().__init__("f_is_string", {"x" : x, **kwargs})
+    def __init__(self, a=None, **kwargs):
+       super().__init__("f_is_string", {"a" : a, **kwargs})
 
 class f_is_list(_Bosl2Base):
-    def __init__(self, x=None, **kwargs):
-       super().__init__("f_is_list", {"x" : x, **kwargs})
+    def __init__(self, a=None, **kwargs):
+       super().__init__("f_is_list", {"a" : a, **kwargs})
 
 class f_is_range(_Bosl2Base):
-    def __init__(self, x=None, **kwargs):
-       super().__init__("f_is_range", {"x" : x, **kwargs})
+    def __init__(self, a=None, **kwargs):
+       super().__init__("f_is_range", {"a" : a, **kwargs})
 
 class f_is_function(_Bosl2Base):
-    def __init__(self, x=None, **kwargs):
-       super().__init__("f_is_function", {"x" : x, **kwargs})
+    def __init__(self, a=None, **kwargs):
+       super().__init__("f_is_function", {"a" : a, **kwargs})
 
 class f_is_vector(_Bosl2Base):
     def __init__(self, a=None, b=None, **kwargs):

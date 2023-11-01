@@ -26,6 +26,10 @@ class rainbow(_Bosl2Base):
     def __init__(self, list=None, stride=None, maxhues=None, shuffle=None, seed=None, **kwargs):
        super().__init__("rainbow", {"list" : list, "stride" : stride, "maxhues" : maxhues, "shuffle" : shuffle, "seed" : seed, **kwargs})
 
+class color_overlaps(_Bosl2Base):
+    def __init__(self, color=None, **kwargs):
+       super().__init__("color_overlaps", {"color" : color, **kwargs})
+
 class hsl(_Bosl2Base):
     def __init__(self, h=None, s=None, l=None, a=None, **kwargs):
        super().__init__("hsl", {"h" : h, "s" : s, "l" : l, "a" : a, **kwargs})

@@ -55,10 +55,10 @@ class torx_mask(_Bosl2Base):
        super().__init__("torx_mask", {"size" : size, "l" : l, "center" : center, "anchor" : anchor, "spin" : spin, "orient" : orient, **kwargs})
 
 class torx_mask2d(_Bosl2Base):
-    def __init__(self, size=None, **kwargs):
-       super().__init__("torx_mask2d", {"size" : size, **kwargs})
+    def __init__(self, size=None, anchor=None, spin=None, **kwargs):
+       super().__init__("torx_mask2d", {"size" : size, "anchor" : anchor, "spin" : spin, **kwargs})
 
 class robertson_mask(_Bosl2Base):
-    def __init__(self, size=None, extra=None, ang=None, **kwargs):
-       super().__init__("robertson_mask", {"size" : size, "extra" : extra, "ang" : ang, **kwargs})
+    def __init__(self, size=None, extra=None, ang=None, anchor=None, spin=None, orient=None, **kwargs):
+       super().__init__("robertson_mask", {"size" : size, "extra" : extra, "ang" : ang, "anchor" : anchor, "spin" : spin, "orient" : orient, **kwargs})
 

@@ -49,6 +49,9 @@ class Bosl2AccessSyntaxMixin(_AccessSyntaxMixin):
     def zrot(self, a=None, p=None, cp=None, **kwargs):
         return self._get_std().zrot(a, p, cp, **kwargs)(self)
 
+    def tilt(self, to=None, cp=None, reverse=None, **kwargs):
+        return self._get_std().tilt(to, cp, reverse, **kwargs)(self)
+
     def xscale(self, x=None, p=None, cp=None, **kwargs):
         return self._get_std().xscale(x, p, cp, **kwargs)(self)
 
@@ -79,6 +82,9 @@ class Bosl2AccessSyntaxMixin(_AccessSyntaxMixin):
     def orient(self, anchor=None, spin=None, **kwargs):
         return self._get_std().orient(anchor, spin, **kwargs)(self)
 
+    def align(self, anchor=None, orient=None, spin=None, inside=None, **kwargs):
+        return self._get_std().align(anchor, orient, spin, inside, **kwargs)(self)
+
     def attach(self, _from=None, to=None, overlap=None, norot=None, **kwargs):
         return self._get_std().attach(_from, to, overlap, norot, **kwargs)(self)
 
@@ -88,8 +94,8 @@ class Bosl2AccessSyntaxMixin(_AccessSyntaxMixin):
     def force_tag(self, tag=None, **kwargs):
         return self._get_std().force_tag(tag, **kwargs)(self)
 
-    def default_tag(self, tag=None, **kwargs):
-        return self._get_std().default_tag(tag, **kwargs)(self)
+    def default_tag(self, tag=None, do_tag=None, **kwargs):
+        return self._get_std().default_tag(tag, do_tag, **kwargs)(self)
 
     def tag_scope(self, scope=None, **kwargs):
         return self._get_std().tag_scope(scope, **kwargs)(self)
@@ -133,11 +139,14 @@ class Bosl2AccessSyntaxMixin(_AccessSyntaxMixin):
     def corner_mask(self, corners=None, _except=None, **kwargs):
         return self._get_std().corner_mask(corners, _except, **kwargs)(self)
 
-    def face_profile(self, faces=None, r=None, d=None, convexity=None, **kwargs):
-        return self._get_std().face_profile(faces, r, d, convexity, **kwargs)(self)
+    def face_profile(self, faces=None, r=None, d=None, excess=None, convexity=None, **kwargs):
+        return self._get_std().face_profile(faces, r, d, excess, convexity, **kwargs)(self)
 
-    def edge_profile(self, edges=None, _except=None, convexity=None, **kwargs):
-        return self._get_std().edge_profile(edges, _except, convexity, **kwargs)(self)
+    def edge_profile(self, edges=None, _except=None, excess=None, convexity=None, **kwargs):
+        return self._get_std().edge_profile(edges, _except, excess, convexity, **kwargs)(self)
+
+    def edge_profile_asym(self, edges=None, _except=None, excess=None, convexity=None, flip=None, corner_type=None, size=None, **kwargs):
+        return self._get_std().edge_profile_asym(edges, _except, excess, convexity, flip, corner_type, size, **kwargs)(self)
 
     def corner_profile(self, corners=None, _except=None, r=None, d=None, convexity=None, **kwargs):
         return self._get_std().corner_profile(corners, _except, r, d, convexity, **kwargs)(self)
@@ -156,6 +165,12 @@ class Bosl2AccessSyntaxMixin(_AccessSyntaxMixin):
 
     def expose_anchors(self, opacity=None, **kwargs):
         return self._get_std().expose_anchors(opacity, **kwargs)(self)
+
+    def show_transform_list(self, tlist=None, s=None, **kwargs):
+        return self._get_std().show_transform_list(tlist, s, **kwargs)(self)
+
+    def generic_airplane(self, s=None, **kwargs):
+        return self._get_std().generic_airplane(s, **kwargs)(self)
 
     def frame_ref(self, s=None, opacity=None, **kwargs):
         return self._get_std().frame_ref(s, opacity, **kwargs)(self)
@@ -303,6 +318,9 @@ class Bosl2AccessSyntaxMixin(_AccessSyntaxMixin):
 
     def rainbow(self, list=None, stride=None, maxhues=None, shuffle=None, seed=None, **kwargs):
         return self._get_std().rainbow(list, stride, maxhues, shuffle, seed, **kwargs)(self)
+
+    def color_overlaps(self, color=None, **kwargs):
+        return self._get_std().color_overlaps(color, **kwargs)(self)
 
     def hsl(self, h=None, s=None, l=None, a=None, **kwargs):
         return self._get_std().hsl(h, s, l, a, **kwargs)(self)

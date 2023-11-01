@@ -6,6 +6,7 @@ from .bosl2_base import Bosl2Base as _Bosl2Base
 
 _extra_scad_include(f"{_Path(__file__).parent.parent / 'bosl2/BOSL2/metric_screws.scad'}", False)
 
+warn = _OpenSCADConstant('warn')
 class get_metric_bolt_head_size(_Bosl2Base):
     def __init__(self, size=None, **kwargs):
        super().__init__("get_metric_bolt_head_size", {"size" : size, **kwargs})

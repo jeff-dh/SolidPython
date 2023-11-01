@@ -12,6 +12,7 @@ _tag_prefix = _OpenSCADConstant('_tag_prefix')
 _overlap = _OpenSCADConstant('_overlap')
 _color = _OpenSCADConstant('_color')
 _save_color = _OpenSCADConstant('_save_color')
+_anchor_override = _OpenSCADConstant('_anchor_override')
 _attach_to = _OpenSCADConstant('_attach_to')
 _attach_anchor = _OpenSCADConstant('_attach_anchor')
 _attach_norot = _OpenSCADConstant('_attach_norot')
@@ -52,6 +53,10 @@ class _attach_geom_2d(_Bosl2Base):
 class _attach_geom_size(_Bosl2Base):
     def __init__(self, geom=None, **kwargs):
        super().__init__("_attach_geom_size", {"geom" : geom, **kwargs})
+
+class _attach_geom_edge_path(_Bosl2Base):
+    def __init__(self, geom=None, edge=None, **kwargs):
+       super().__init__("_attach_geom_edge_path", {"geom" : geom, "edge" : edge, **kwargs})
 
 class _attach_transform(_Bosl2Base):
     def __init__(self, anchor=None, spin=None, orient=None, geom=None, p=None, **kwargs):
@@ -141,6 +146,10 @@ class orient(_Bosl2Base):
     def __init__(self, anchor=None, spin=None, **kwargs):
        super().__init__("orient", {"anchor" : anchor, "spin" : spin, **kwargs})
 
+class align(_Bosl2Base):
+    def __init__(self, anchor=None, orient=None, spin=None, inside=None, **kwargs):
+       super().__init__("align", {"anchor" : anchor, "orient" : orient, "spin" : spin, "inside" : inside, **kwargs})
+
 class attach(_Bosl2Base):
     def __init__(self, _from=None, to=None, overlap=None, norot=None, **kwargs):
        super().__init__("attach", {"_from" : _from, "to" : to, "overlap" : overlap, "norot" : norot, **kwargs})
@@ -154,8 +163,8 @@ class force_tag(_Bosl2Base):
        super().__init__("force_tag", {"tag" : tag, **kwargs})
 
 class default_tag(_Bosl2Base):
-    def __init__(self, tag=None, **kwargs):
-       super().__init__("default_tag", {"tag" : tag, **kwargs})
+    def __init__(self, tag=None, do_tag=None, **kwargs):
+       super().__init__("default_tag", {"tag" : tag, "do_tag" : do_tag, **kwargs})
 
 class tag_scope(_Bosl2Base):
     def __init__(self, scope=None, **kwargs):
@@ -214,12 +223,16 @@ class corner_mask(_Bosl2Base):
        super().__init__("corner_mask", {"corners" : corners, "_except" : _except, **kwargs})
 
 class face_profile(_Bosl2Base):
-    def __init__(self, faces=None, r=None, d=None, convexity=None, **kwargs):
-       super().__init__("face_profile", {"faces" : faces, "r" : r, "d" : d, "convexity" : convexity, **kwargs})
+    def __init__(self, faces=None, r=None, d=None, excess=None, convexity=None, **kwargs):
+       super().__init__("face_profile", {"faces" : faces, "r" : r, "d" : d, "excess" : excess, "convexity" : convexity, **kwargs})
 
 class edge_profile(_Bosl2Base):
-    def __init__(self, edges=None, _except=None, convexity=None, **kwargs):
-       super().__init__("edge_profile", {"edges" : edges, "_except" : _except, "convexity" : convexity, **kwargs})
+    def __init__(self, edges=None, _except=None, excess=None, convexity=None, **kwargs):
+       super().__init__("edge_profile", {"edges" : edges, "_except" : _except, "excess" : excess, "convexity" : convexity, **kwargs})
+
+class edge_profile_asym(_Bosl2Base):
+    def __init__(self, edges=None, _except=None, excess=None, convexity=None, flip=None, corner_type=None, size=None, **kwargs):
+       super().__init__("edge_profile_asym", {"edges" : edges, "_except" : _except, "excess" : excess, "convexity" : convexity, "flip" : flip, "corner_type" : corner_type, "size" : size, **kwargs})
 
 class corner_profile(_Bosl2Base):
     def __init__(self, corners=None, _except=None, r=None, d=None, convexity=None, **kwargs):
@@ -244,6 +257,14 @@ class anchor_arrow2d(_Bosl2Base):
 class expose_anchors(_Bosl2Base):
     def __init__(self, opacity=None, **kwargs):
        super().__init__("expose_anchors", {"opacity" : opacity, **kwargs})
+
+class show_transform_list(_Bosl2Base):
+    def __init__(self, tlist=None, s=None, **kwargs):
+       super().__init__("show_transform_list", {"tlist" : tlist, "s" : s, **kwargs})
+
+class generic_airplane(_Bosl2Base):
+    def __init__(self, s=None, **kwargs):
+       super().__init__("generic_airplane", {"s" : s, **kwargs})
 
 class frame_ref(_Bosl2Base):
     def __init__(self, s=None, opacity=None, **kwargs):

@@ -51,8 +51,8 @@ class subdivide_path(_Bosl2Base):
        super().__init__("subdivide_path", {"path" : path, "n" : n, "refine" : refine, "maxlen" : maxlen, "closed" : closed, "exact" : exact, "method" : method, **kwargs})
 
 class resample_path(_Bosl2Base):
-    def __init__(self, path=None, n=None, spacing=None, closed=None, **kwargs):
-       super().__init__("resample_path", {"path" : path, "n" : n, "spacing" : spacing, "closed" : closed, **kwargs})
+    def __init__(self, path=None, n=None, spacing=None, keep_corners=None, closed=None, **kwargs):
+       super().__init__("resample_path", {"path" : path, "n" : n, "spacing" : spacing, "keep_corners" : keep_corners, "closed" : closed, **kwargs})
 
 class is_path_simple(_Bosl2Base):
     def __init__(self, path=None, closed=None, eps=None, **kwargs):

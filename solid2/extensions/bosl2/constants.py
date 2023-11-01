@@ -8,6 +8,7 @@ _extra_scad_include(f"{_Path(__file__).parent.parent / 'bosl2/BOSL2/constants.sc
 
 _UNDEF = _OpenSCADConstant('_UNDEF')
 INCH = _OpenSCADConstant('INCH')
+IDENT = _OpenSCADConstant('IDENT')
 LEFT = _OpenSCADConstant('LEFT')
 RIGHT = _OpenSCADConstant('RIGHT')
 FRONT = _OpenSCADConstant('FRONT')
@@ -25,7 +26,6 @@ CENTRE = _OpenSCADConstant('CENTRE')
 SEGMENT = _OpenSCADConstant('SEGMENT')
 RAY = _OpenSCADConstant('RAY')
 LINE = _OpenSCADConstant('LINE')
-IDENT = _OpenSCADConstant('IDENT')
 class get_slop(_Bosl2Base):
     def __init__(self, **kwargs):
        super().__init__("get_slop", {**kwargs})

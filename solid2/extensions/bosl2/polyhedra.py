@@ -26,16 +26,16 @@ class _point_ref(_Bosl2Base):
        super().__init__("_point_ref", {"points" : points, "sign" : sign, **kwargs})
 
 class regular_polyhedron_info(_Bosl2Base):
-    def __init__(self, info=None, name=None, index=None, type=None, faces=None, facetype=None, hasfaces=None, side=None, ir=None, mr=None, _or=None, r=None, d=None, anchor=None, facedown=None, stellate=None, longside=None, h=None, **kwargs):
-       super().__init__("regular_polyhedron_info", {"info" : info, "name" : name, "index" : index, "type" : type, "faces" : faces, "facetype" : facetype, "hasfaces" : hasfaces, "side" : side, "ir" : ir, "mr" : mr, "_or" : _or, "r" : r, "d" : d, "anchor" : anchor, "facedown" : facedown, "stellate" : stellate, "longside" : longside, "h" : h, **kwargs})
+    def __init__(self, info=None, name=None, index=None, type=None, faces=None, facetype=None, hasfaces=None, side=None, ir=None, mr=None, _or=None, r=None, d=None, anchor=None, facedown=None, stellate=None, longside=None, h=None, height=None, **kwargs):
+       super().__init__("regular_polyhedron_info", {"info" : info, "name" : name, "index" : index, "type" : type, "faces" : faces, "facetype" : facetype, "hasfaces" : hasfaces, "side" : side, "ir" : ir, "mr" : mr, "_or" : _or, "r" : r, "d" : d, "anchor" : anchor, "facedown" : facedown, "stellate" : stellate, "longside" : longside, "h" : h, "height" : height, **kwargs})
 
 class _stellate_faces(_Bosl2Base):
     def __init__(self, scalefactor=None, stellate=None, vertices=None, faces_normals=None, **kwargs):
        super().__init__("_stellate_faces", {"scalefactor" : scalefactor, "stellate" : stellate, "vertices" : vertices, "faces_normals" : faces_normals, **kwargs})
 
 class _trapezohedron(_Bosl2Base):
-    def __init__(self, faces=None, r=None, side=None, longside=None, h=None, d=None, **kwargs):
-       super().__init__("_trapezohedron", {"faces" : faces, "r" : r, "side" : side, "longside" : longside, "h" : h, "d" : d, **kwargs})
+    def __init__(self, faces=None, r=None, side=None, longside=None, h=None, height=None, d=None, **kwargs):
+       super().__init__("_trapezohedron", {"faces" : faces, "r" : r, "side" : side, "longside" : longside, "h" : h, "height" : height, "d" : d, **kwargs})
 
 class _facenormal(_Bosl2Base):
     def __init__(self, pts=None, face=None, **kwargs):
@@ -46,6 +46,6 @@ class _full_faces(_Bosl2Base):
        super().__init__("_full_faces", {"pts" : pts, "faces" : faces, **kwargs})
 
 class regular_polyhedron(_Bosl2Base):
-    def __init__(self, name=None, index=None, type=None, faces=None, facetype=None, hasfaces=None, side=None, ir=None, mr=None, _or=None, r=None, d=None, anchor=None, rounding=None, repeat=None, facedown=None, draw=None, rotate_children=None, stellate=None, longside=None, h=None, **kwargs):
-       super().__init__("regular_polyhedron", {"name" : name, "index" : index, "type" : type, "faces" : faces, "facetype" : facetype, "hasfaces" : hasfaces, "side" : side, "ir" : ir, "mr" : mr, "_or" : _or, "r" : r, "d" : d, "anchor" : anchor, "rounding" : rounding, "repeat" : repeat, "facedown" : facedown, "draw" : draw, "rotate_children" : rotate_children, "stellate" : stellate, "longside" : longside, "h" : h, **kwargs})
+    def __init__(self, name=None, index=None, type=None, faces=None, facetype=None, hasfaces=None, side=None, ir=None, mr=None, _or=None, r=None, d=None, anchor=None, rounding=None, repeat=None, facedown=None, draw=None, rotate_children=None, stellate=None, longside=None, h=None, height=None, **kwargs):
+       super().__init__("regular_polyhedron", {"name" : name, "index" : index, "type" : type, "faces" : faces, "facetype" : facetype, "hasfaces" : hasfaces, "side" : side, "ir" : ir, "mr" : mr, "_or" : _or, "r" : r, "d" : d, "anchor" : anchor, "rounding" : rounding, "repeat" : repeat, "facedown" : facedown, "draw" : draw, "rotate_children" : rotate_children, "stellate" : stellate, "longside" : longside, "h" : h, "height" : height, **kwargs})
 

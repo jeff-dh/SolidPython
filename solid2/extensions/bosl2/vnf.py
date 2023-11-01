@@ -161,8 +161,8 @@ class _edge_not_reported(_Bosl2Base):
        super().__init__("_edge_not_reported", {"edge" : edge, "varr" : varr, "reports" : reports, **kwargs})
 
 class vnf_polyhedron(_Bosl2Base):
-    def __init__(self, vnf=None, convexity=None, extent=None, cp=None, anchor=None, spin=None, orient=None, atype=None, **kwargs):
-       super().__init__("vnf_polyhedron", {"vnf" : vnf, "convexity" : convexity, "extent" : extent, "cp" : cp, "anchor" : anchor, "spin" : spin, "orient" : orient, "atype" : atype, **kwargs})
+    def __init__(self, vnf=None, convexity=None, cp=None, anchor=None, spin=None, orient=None, atype=None, **kwargs):
+       super().__init__("vnf_polyhedron", {"vnf" : vnf, "convexity" : convexity, "cp" : cp, "anchor" : anchor, "spin" : spin, "orient" : orient, "atype" : atype, **kwargs})
 
 class vnf_wireframe(_Bosl2Base):
     def __init__(self, vnf=None, width=None, **kwargs):

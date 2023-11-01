@@ -55,8 +55,8 @@ class screw_head(_Bosl2Base):
        super().__init__("screw_head", {"screw_info" : screw_info, "details" : details, "counterbore" : counterbore, "flat_height" : flat_height, "teardrop" : teardrop, "slop" : slop, **kwargs})
 
 class nut(_Bosl2Base):
-    def __init__(self, spec=None, shape=None, thickness=None, nutwidth=None, thread=None, tolerance=None, hole_oversize=None, bevel=None, bevel1=None, bevel2=None, bevang=None, ibevel=None, ibevel1=None, ibevel2=None, higbee=None, higbee1=None, higbee2=None, anchor=None, spin=None, orient=None, oversize=None, **kwargs):
-       super().__init__("nut", {"spec" : spec, "shape" : shape, "thickness" : thickness, "nutwidth" : nutwidth, "thread" : thread, "tolerance" : tolerance, "hole_oversize" : hole_oversize, "bevel" : bevel, "bevel1" : bevel1, "bevel2" : bevel2, "bevang" : bevang, "ibevel" : ibevel, "ibevel1" : ibevel1, "ibevel2" : ibevel2, "higbee" : higbee, "higbee1" : higbee1, "higbee2" : higbee2, "anchor" : anchor, "spin" : spin, "orient" : orient, "oversize" : oversize, **kwargs})
+    def __init__(self, spec=None, shape=None, thickness=None, nutwidth=None, thread=None, tolerance=None, hole_oversize=None, bevel=None, bevel1=None, bevel2=None, bevang=None, ibevel=None, ibevel1=None, ibevel2=None, blunt_start=None, blunt_start1=None, blunt_start2=None, anchor=None, spin=None, orient=None, oversize=None, **kwargs):
+       super().__init__("nut", {"spec" : spec, "shape" : shape, "thickness" : thickness, "nutwidth" : nutwidth, "thread" : thread, "tolerance" : tolerance, "hole_oversize" : hole_oversize, "bevel" : bevel, "bevel1" : bevel1, "bevel2" : bevel2, "bevang" : bevang, "ibevel" : ibevel, "ibevel1" : ibevel1, "ibevel2" : ibevel2, "blunt_start" : blunt_start, "blunt_start1" : blunt_start1, "blunt_start2" : blunt_start2, "anchor" : anchor, "spin" : spin, "orient" : orient, "oversize" : oversize, **kwargs})
 
 class screw_info(_Bosl2Base):
     def __init__(self, name=None, head=None, drive=None, thread=None, drive_size=None, shaft_oversize=None, head_oversize=None, _origin=None, **kwargs):
