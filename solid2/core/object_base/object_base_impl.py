@@ -22,16 +22,18 @@ class RenderMixin:
 
     def _ipython_display_(self):
         from IPython import get_ipython, display
-        from importlib import find_loader
 
         def is_notebook():
             return get_ipython().__class__.__name__ == 'ZMQInteractiveShell'
 
-        if is_notebook() and find_loader("jupyterscad", None):
-            from jupyterscad import render
+        if is_notebook():
+            try:
+                from jupyterscad import render
+            except ImportError:
+                print(self.as_scad())
+                return
+
             display.display(render(self))
-        else:
-            print(self.as_scad())
 
 class ObjectBase(RenderMixin):
     def __init__(self):
