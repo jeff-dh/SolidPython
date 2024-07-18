@@ -75,7 +75,7 @@ def _write_to_file(out_string, filename=None, outdir=''):
 
     outfile_path = outpath / Path(outfile)
 
-    outfile_path.write_text(out_string, , encoding="utf-8")
+    outfile_path.write_text(out_string, encoding="utf-8")
     return outfile_path.absolute().as_posix()
 
 def get_include_string():
