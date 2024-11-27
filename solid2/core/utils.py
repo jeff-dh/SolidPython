@@ -58,7 +58,8 @@ def py2openscad(o):
     if type(o) == bool:
         return str(o).lower()
     if type(o) == str:
-        return f'\"{re.sub(r'([\\"])', r'\\\1', o)}\"'  # type: ignore
+        escaped_str = re.sub(r'([\\"])', r'\\\1', o)
+        return f'\"{escaped_str}\"'  # type: ignore
     if isinstance(o, ObjectBase):
         return o._render()[:-2] #[:-1] removing traling ;\n
     if hasattr(o, "__iter__"):
