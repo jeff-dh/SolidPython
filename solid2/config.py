@@ -13,6 +13,7 @@ class Config:
         self.enable_pickle_cache = True and self.pickle_cache_dir is not None
 
         self.openscad_library_paths = self.get_openscad_library_paths()
+        self.openscad_stl_command = "openscad -o {stlfile} {scadfile}"
 
     def get_openscad_library_paths(self):
         """

@@ -23,9 +23,11 @@ def render_to_stl_file(root, filename):
         scad_render_to_file(root,
                             Path(filename).with_suffix(".stl.scad"))
 
+    cmd = config.openscad_stl_command.format(scadfile=scad_file, stlfile=filename)
+
+    import shlex
     import subprocess
-    args = ["openscad", "-o", filename, scad_file]
-    subprocess.check_call(args,
+    subprocess.check_call(shlex.split(cmd),
                           stdout=subprocess.PIPE,
                           stderr=subprocess.DEVNULL)
 
