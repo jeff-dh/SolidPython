@@ -167,17 +167,17 @@ class OpenSCADConstant:
     def __abs__(self): return OpenSCADConstant(f'abs({self})')
 
     #"illegal" operators
-    def __eq__(self, _): return self.__illegal_operator__()
-    def __ne__(self, _): return self.__illegal_operator__()
-    def __le__(self, _): return self.__illegal_operator__()
-    def __ge__(self, _): return self.__illegal_operator__()
-    def __lt__(self, _): return self.__illegal_operator__()
-    def __gt__(self, _): return self.__illegal_operator__()
+    def __eq__(self, other): return self.__operator_base__("==", other) #type: ignore
+    def __ne__(self, other): return self.__operator_base__("!=", other) #type: ignore
+    def __le__(self, other): return self.__operator_base__("<=", other)
+    def __ge__(self, other): return self.__operator_base__(">=", other)
+    def __lt__(self, other): return self.__operator_base__("<", other)
+    def __gt__(self, other): return self.__operator_base__(">", other)
 
     #do not allow to evaluate to bool
     def __bool__(self):
-        raise Exception("You can't use scad variables as truth statement because " +\
-                        "we don't know the value of a customized variable at " +\
+        raise Exception("You can't evaluate scad variables because " +\
+                        "we don't know the value of the variable at " +\
                         "SolidPython runtime.")
 
     def _render(self):
