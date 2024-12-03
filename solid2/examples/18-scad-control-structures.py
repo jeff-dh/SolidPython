@@ -1,9 +1,12 @@
-from solid2 import cube, get_animation_time, scad_for, scad_if, scad_range
+from solid2 import CustomizerDropdownVariable, \
+                   CustomizerSliderVariable, \
+                   cube, scad_range, scad_for, scad_if
 
-cubes_stacked = scad_for(scad_range(0, 7), lambda i: cube(1).up(i*2))
+number_of_cubes = CustomizerSliderVariable("number_of_cubes", 7)
+alt_color = CustomizerDropdownVariable("alt_color", "red", ["red", "blue", "green"])
 
-c = cube(3).left(5)
-cube_blinking = scad_if(get_animation_time() < 0.5, c, c.color("red"))
+def f_loop(i):
+    c = scad_if(i % 2 == 0, cube(), cube().color(alt_color))
+    return c.up(i*2)
 
-(cubes_stacked + cube_blinking).save_as_scad()
-
+scad_for(scad_range(0, number_of_cubes), f_loop).save_as_scad()
