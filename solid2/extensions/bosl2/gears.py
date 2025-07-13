@@ -110,9 +110,13 @@ class outer_radius(_Bosl2Base):
     def __init__(self, circ_pitch=None, teeth=None, clearance=None, internal=None, helical=None, profile_shift=None, pressure_angle=None, shorten=None, mod=None, pitch=None, diam_pitch=None, **kwargs):
        super().__init__("outer_radius", {"circ_pitch" : circ_pitch, "teeth" : teeth, "clearance" : clearance, "internal" : internal, "helical" : helical, "profile_shift" : profile_shift, "pressure_angle" : pressure_angle, "shorten" : shorten, "mod" : mod, "pitch" : pitch, "diam_pitch" : diam_pitch, **kwargs})
 
-class _root_radius(_Bosl2Base):
+class root_radius(_Bosl2Base):
+    def __init__(self, teeth=None, helical=None, clearance=None, internal=None, profile_shift=None, pressure_angle=None, mod=None, pitch=None, diam_pitch=None, backlash=None, **kwargs):
+       super().__init__("root_radius", {"teeth" : teeth, "helical" : helical, "clearance" : clearance, "internal" : internal, "profile_shift" : profile_shift, "pressure_angle" : pressure_angle, "mod" : mod, "pitch" : pitch, "diam_pitch" : diam_pitch, "backlash" : backlash, **kwargs})
+
+class _root_radius_basic(_Bosl2Base):
     def __init__(self, circ_pitch=None, teeth=None, clearance=None, internal=None, helical=None, profile_shift=None, diam_pitch=None, mod=None, pitch=None, **kwargs):
-       super().__init__("_root_radius", {"circ_pitch" : circ_pitch, "teeth" : teeth, "clearance" : clearance, "internal" : internal, "helical" : helical, "profile_shift" : profile_shift, "diam_pitch" : diam_pitch, "mod" : mod, "pitch" : pitch, **kwargs})
+       super().__init__("_root_radius_basic", {"circ_pitch" : circ_pitch, "teeth" : teeth, "clearance" : clearance, "internal" : internal, "helical" : helical, "profile_shift" : profile_shift, "diam_pitch" : diam_pitch, "mod" : mod, "pitch" : pitch, **kwargs})
 
 class _base_radius(_Bosl2Base):
     def __init__(self, circ_pitch=None, teeth=None, pressure_angle=None, helical=None, diam_pitch=None, mod=None, pitch=None, **kwargs):

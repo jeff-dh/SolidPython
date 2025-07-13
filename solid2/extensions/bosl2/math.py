@@ -22,6 +22,10 @@ class lerpn(_Bosl2Base):
     def __init__(self, a=None, b=None, n=None, endpoint=None, **kwargs):
        super().__init__("lerpn", {"a" : a, "b" : b, "n" : n, "endpoint" : endpoint, **kwargs})
 
+class bilerp(_Bosl2Base):
+    def __init__(self, points=None, x=None, y=None, **kwargs):
+       super().__init__("bilerp", {"points" : points, "x" : x, "y" : y, **kwargs})
+
 class sqr(_Bosl2Base):
     def __init__(self, x=None, **kwargs):
        super().__init__("sqr", {"x" : x, **kwargs})
@@ -130,6 +134,14 @@ class modang(_Bosl2Base):
     def __init__(self, x=None, **kwargs):
        super().__init__("modang", {"x" : x, **kwargs})
 
+class mean_angle(_Bosl2Base):
+    def __init__(self, angle1=None, angle2=None, **kwargs):
+       super().__init__("mean_angle", {"angle1" : angle1, "angle2" : angle2, **kwargs})
+
+class fit_to_range(_Bosl2Base):
+    def __init__(self, M=None, minval=None, maxval=None, **kwargs):
+       super().__init__("fit_to_range", {"M" : M, "minval" : minval, "maxval" : maxval, **kwargs})
+
 class sum(_Bosl2Base):
     def __init__(self, v=None, dflt=None, **kwargs):
        super().__init__("sum", {"v" : v, "dflt" : dflt, **kwargs})
@@ -154,29 +166,13 @@ class cumsum(_Bosl2Base):
     def __init__(self, v=None, **kwargs):
        super().__init__("cumsum", {"v" : v, **kwargs})
 
-class _cumsum(_Bosl2Base):
-    def __init__(self, v=None, _i=None, _acc=None, **kwargs):
-       super().__init__("_cumsum", {"v" : v, "_i" : _i, "_acc" : _acc, **kwargs})
-
 class product(_Bosl2Base):
-    def __init__(self, v=None, **kwargs):
-       super().__init__("product", {"v" : v, **kwargs})
-
-class _product(_Bosl2Base):
-    def __init__(self, v=None, i=None, _tot=None, **kwargs):
-       super().__init__("_product", {"v" : v, "i" : i, "_tot" : _tot, **kwargs})
+    def __init__(self, list=None, right=None, **kwargs):
+       super().__init__("product", {"list" : list, "right" : right, **kwargs})
 
 class cumprod(_Bosl2Base):
     def __init__(self, list=None, right=None, **kwargs):
        super().__init__("cumprod", {"list" : list, "right" : right, **kwargs})
-
-class _cumprod(_Bosl2Base):
-    def __init__(self, v=None, right=None, _i=None, _acc=None, **kwargs):
-       super().__init__("_cumprod", {"v" : v, "right" : right, "_i" : _i, "_acc" : _acc, **kwargs})
-
-class _cumprod_vec(_Bosl2Base):
-    def __init__(self, v=None, _i=None, _acc=None, **kwargs):
-       super().__init__("_cumprod_vec", {"v" : v, "_i" : _i, "_acc" : _acc, **kwargs})
 
 class convolve(_Bosl2Base):
     def __init__(self, p=None, q=None, **kwargs):

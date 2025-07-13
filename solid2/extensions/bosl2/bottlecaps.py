@@ -78,8 +78,8 @@ class generic_bottle_neck(_Bosl2Base):
        super().__init__("generic_bottle_neck", {"wall" : wall, "neck_d" : neck_d, "id" : id, "thread_od" : thread_od, "height" : height, "support_d" : support_d, "pitch" : pitch, "round_supp" : round_supp, "anchor" : anchor, "spin" : spin, "orient" : orient, **kwargs})
 
 class generic_bottle_cap(_Bosl2Base):
-    def __init__(self, wall=None, texture=None, height=None, thread_depth=None, tolerance=None, neck_od=None, flank_angle=None, pitch=None, anchor=None, spin=None, orient=None, **kwargs):
-       super().__init__("generic_bottle_cap", {"wall" : wall, "texture" : texture, "height" : height, "thread_depth" : thread_depth, "tolerance" : tolerance, "neck_od" : neck_od, "flank_angle" : flank_angle, "pitch" : pitch, "anchor" : anchor, "spin" : spin, "orient" : orient, **kwargs})
+    def __init__(self, wall=None, texture=None, height=None, thread_depth=None, thread_od=None, tolerance=None, neck_od=None, flank_angle=None, pitch=None, anchor=None, spin=None, orient=None, **kwargs):
+       super().__init__("generic_bottle_cap", {"wall" : wall, "texture" : texture, "height" : height, "thread_depth" : thread_depth, "thread_od" : thread_od, "tolerance" : tolerance, "neck_od" : neck_od, "flank_angle" : flank_angle, "pitch" : pitch, "anchor" : anchor, "spin" : spin, "orient" : orient, **kwargs})
 
 class bottle_adapter_neck_to_cap(_Bosl2Base):
     def __init__(self, wall=None, texture=None, cap_wall=None, cap_h=None, cap_thread_depth=None, tolerance=None, cap_neck_od=None, cap_neck_id=None, cap_thread_taper=None, cap_thread_pitch=None, neck_d=None, neck_id=None, neck_thread_od=None, neck_h=None, neck_thread_pitch=None, neck_support_od=None, d=None, taper_lead_in=None, anchor=None, spin=None, orient=None, **kwargs):

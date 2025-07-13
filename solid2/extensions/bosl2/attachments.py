@@ -8,6 +8,7 @@ _extra_scad_include(f"{_Path(__file__).parent.parent / 'bosl2/BOSL2/attachments.
 
 _tags = _OpenSCADConstant('_tags')
 _tag = _OpenSCADConstant('_tag')
+_save_tag = _OpenSCADConstant('_save_tag')
 _tag_prefix = _OpenSCADConstant('_tag_prefix')
 _overlap = _OpenSCADConstant('_overlap')
 _color = _OpenSCADConstant('_color')
@@ -15,14 +16,22 @@ _save_color = _OpenSCADConstant('_save_color')
 _anchor_override = _OpenSCADConstant('_anchor_override')
 _attach_to = _OpenSCADConstant('_attach_to')
 _attach_anchor = _OpenSCADConstant('_attach_anchor')
-_attach_norot = _OpenSCADConstant('_attach_norot')
+_attach_alignment = _OpenSCADConstant('_attach_alignment')
 _parent_anchor = _OpenSCADConstant('_parent_anchor')
 _parent_spin = _OpenSCADConstant('_parent_spin')
 _parent_orient = _OpenSCADConstant('_parent_orient')
 _parent_size = _OpenSCADConstant('_parent_size')
 _parent_geom = _OpenSCADConstant('_parent_geom')
+_attach_inside = _OpenSCADConstant('_attach_inside')
+_edge_angle = _OpenSCADConstant('_edge_angle')
+_edge_length = _OpenSCADConstant('_edge_length')
 _tags_shown = _OpenSCADConstant('_tags_shown')
 _tags_hidden = _OpenSCADConstant('_tags_hidden')
+_ghost_this = _OpenSCADConstant('_ghost_this')
+_ghost = _OpenSCADConstant('_ghost')
+_ghosting = _OpenSCADConstant('_ghosting')
+_highlight_this = _OpenSCADConstant('_highlight_this')
+_highlight = _OpenSCADConstant('_highlight')
 _ANCHOR_TYPES = _OpenSCADConstant('_ANCHOR_TYPES')
 EDGES_NONE = _OpenSCADConstant('EDGES_NONE')
 EDGES_ALL = _OpenSCADConstant('EDGES_ALL')
@@ -30,21 +39,33 @@ EDGE_OFFSETS = _OpenSCADConstant('EDGE_OFFSETS')
 CORNERS_NONE = _OpenSCADConstant('CORNERS_NONE')
 CORNERS_ALL = _OpenSCADConstant('CORNERS_ALL')
 CORNER_OFFSETS = _OpenSCADConstant('CORNER_OFFSETS')
+class _quant_anch(_Bosl2Base):
+    def __init__(self, x=None, **kwargs):
+       super().__init__("_quant_anch", {"x" : x, **kwargs})
+
+class _make_anchor_legal(_Bosl2Base):
+    def __init__(self, anchor=None, geom=None, **kwargs):
+       super().__init__("_make_anchor_legal", {"anchor" : anchor, "geom" : geom, **kwargs})
+
+class _is_geometry(_Bosl2Base):
+    def __init__(self, entry=None, **kwargs):
+       super().__init__("_is_geometry", {"entry" : entry, **kwargs})
+
 class reorient(_Bosl2Base):
     def __init__(self, anchor=None, spin=None, orient=None, size=None, size2=None, shift=None, r=None, r1=None, r2=None, d=None, d1=None, d2=None, l=None, h=None, vnf=None, path=None, region=None, extent=None, offset=None, cp=None, anchors=None, two_d=None, axis=None, override=None, geom=None, p=None, **kwargs):
        super().__init__("reorient", {"anchor" : anchor, "spin" : spin, "orient" : orient, "size" : size, "size2" : size2, "shift" : shift, "r" : r, "r1" : r1, "r2" : r2, "d" : d, "d1" : d1, "d2" : d2, "l" : l, "h" : h, "vnf" : vnf, "path" : path, "region" : region, "extent" : extent, "offset" : offset, "cp" : cp, "anchors" : anchors, "two_d" : two_d, "axis" : axis, "override" : override, "geom" : geom, "p" : p, **kwargs})
 
 class named_anchor(_Bosl2Base):
-    def __init__(self, name=None, pos=None, orient=None, spin=None, **kwargs):
-       super().__init__("named_anchor", {"name" : name, "pos" : pos, "orient" : orient, "spin" : spin, **kwargs})
-
-class _local_struct_val(_Bosl2Base):
-    def __init__(self, struct=None, key=None, **kwargs):
-       super().__init__("_local_struct_val", {"struct" : struct, "key" : key, **kwargs})
+    def __init__(self, name=None, pos=None, orient=None, spin=None, rot=None, flip=None, info=None, **kwargs):
+       super().__init__("named_anchor", {"name" : name, "pos" : pos, "orient" : orient, "spin" : spin, "rot" : rot, "flip" : flip, "info" : info, **kwargs})
 
 class attach_geom(_Bosl2Base):
     def __init__(self, size=None, size2=None, shift=None, scale=None, twist=None, r=None, r1=None, r2=None, d=None, d1=None, d2=None, l=None, h=None, vnf=None, region=None, extent=None, cp=None, offset=None, anchors=None, two_d=None, axis=None, override=None, **kwargs):
        super().__init__("attach_geom", {"size" : size, "size2" : size2, "shift" : shift, "scale" : scale, "twist" : twist, "r" : r, "r1" : r1, "r2" : r2, "d" : d, "d1" : d1, "d2" : d2, "l" : l, "h" : h, "vnf" : vnf, "region" : region, "extent" : extent, "cp" : cp, "offset" : offset, "anchors" : anchors, "two_d" : two_d, "axis" : axis, "override" : override, **kwargs})
+
+class define_part(_Bosl2Base):
+    def __init__(self, name=None, geom=None, inside=None, T=None, **kwargs):
+       super().__init__("define_part", {"name" : name, "geom" : geom, "inside" : inside, "T" : T, **kwargs})
 
 class _attach_geom_2d(_Bosl2Base):
     def __init__(self, geom=None, **kwargs):
@@ -70,9 +91,9 @@ class _get_cp(_Bosl2Base):
     def __init__(self, geom=None, **kwargs):
        super().__init__("_get_cp", {"geom" : geom, **kwargs})
 
-class _force_anchor_2d(_Bosl2Base):
-    def __init__(self, anchor=None, **kwargs):
-       super().__init__("_force_anchor_2d", {"anchor" : anchor, **kwargs})
+class _three_edge_corner_dir(_Bosl2Base):
+    def __init__(self, facevecs=None, edges=None, **kwargs):
+       super().__init__("_three_edge_corner_dir", {"facevecs" : facevecs, "edges" : edges, **kwargs})
 
 class _find_anchor(_Bosl2Base):
     def __init__(self, anchor=None, geom=None, **kwargs):
@@ -138,25 +159,85 @@ class _corners_text(_Bosl2Base):
     def __init__(self, corners=None, **kwargs):
        super().__init__("_corners_text", {"corners" : corners, **kwargs})
 
+class _force_rot(_Bosl2Base):
+    def __init__(self, T=None, **kwargs):
+       super().__init__("_force_rot", {"T" : T, **kwargs})
+
+class _local_struct_val(_Bosl2Base):
+    def __init__(self, struct=None, key=None, **kwargs):
+       super().__init__("_local_struct_val", {"struct" : struct, "key" : key, **kwargs})
+
+class _force_anchor_2d(_Bosl2Base):
+    def __init__(self, anchor=None, **kwargs):
+       super().__init__("_force_anchor_2d", {"anchor" : anchor, **kwargs})
+
+class _compute_spin(_Bosl2Base):
+    def __init__(self, anchor_dir=None, spin_dir=None, **kwargs):
+       super().__init__("_compute_spin", {"anchor_dir" : anchor_dir, "spin_dir" : spin_dir, **kwargs})
+
+class _canonical_edge(_Bosl2Base):
+    def __init__(self, edge=None, **kwargs):
+       super().__init__("_canonical_edge", {"edge" : edge, **kwargs})
+
+class parent(_Bosl2Base):
+    def __init__(self, **kwargs):
+       super().__init__("parent", {**kwargs})
+
+class parent_part(_Bosl2Base):
+    def __init__(self, name=None, **kwargs):
+       super().__init__("parent_part", {"name" : name, **kwargs})
+
+class desc_point(_Bosl2Base):
+    def __init__(self, desc=None, p=None, anchor=None, **kwargs):
+       super().__init__("desc_point", {"desc" : desc, "p" : p, "anchor" : anchor, **kwargs})
+
+class desc_dir(_Bosl2Base):
+    def __init__(self, desc=None, dir=None, anchor=None, **kwargs):
+       super().__init__("desc_dir", {"desc" : desc, "dir" : dir, "anchor" : anchor, **kwargs})
+
+class desc_attach(_Bosl2Base):
+    def __init__(self, desc=None, anchor=None, p=None, reverse=None, **kwargs):
+       super().__init__("desc_attach", {"desc" : desc, "anchor" : anchor, "p" : p, "reverse" : reverse, **kwargs})
+
+class desc_dist(_Bosl2Base):
+    def __init__(self, desc1=None, anchor1=None, desc2=None, anchor2=None, **kwargs):
+       super().__init__("desc_dist", {"desc1" : desc1, "anchor1" : anchor1, "desc2" : desc2, "anchor2" : anchor2, **kwargs})
+
+class transform_desc(_Bosl2Base):
+    def __init__(self, T=None, desc=None, **kwargs):
+       super().__init__("transform_desc", {"T" : T, "desc" : desc, **kwargs})
+
+class is_description(_Bosl2Base):
+    def __init__(self, desc=None, **kwargs):
+       super().__init__("is_description", {"desc" : desc, **kwargs})
+
 class position(_Bosl2Base):
-    def __init__(self, _from=None, **kwargs):
-       super().__init__("position", {"_from" : _from, **kwargs})
+    def __init__(self, at=None, _from=None, **kwargs):
+       super().__init__("position", {"at" : at, "_from" : _from, **kwargs})
 
 class orient(_Bosl2Base):
     def __init__(self, anchor=None, spin=None, **kwargs):
        super().__init__("orient", {"anchor" : anchor, "spin" : spin, **kwargs})
 
 class align(_Bosl2Base):
-    def __init__(self, anchor=None, orient=None, spin=None, inside=None, **kwargs):
-       super().__init__("align", {"anchor" : anchor, "orient" : orient, "spin" : spin, "inside" : inside, **kwargs})
+    def __init__(self, anchor=None, align=None, inside=None, inset=None, shiftout=None, overlap=None, **kwargs):
+       super().__init__("align", {"anchor" : anchor, "align" : align, "inside" : inside, "inset" : inset, "shiftout" : shiftout, "overlap" : overlap, **kwargs})
 
 class attach(_Bosl2Base):
-    def __init__(self, _from=None, to=None, overlap=None, norot=None, **kwargs):
-       super().__init__("attach", {"_from" : _from, "to" : to, "overlap" : overlap, "norot" : norot, **kwargs})
+    def __init__(self, parent=None, child=None, overlap=None, align=None, spin=None, norot=None, inset=None, shiftout=None, inside=None, _from=None, to=None, **kwargs):
+       super().__init__("attach", {"parent" : parent, "child" : child, "overlap" : overlap, "align" : align, "spin" : spin, "norot" : norot, "inset" : inset, "shiftout" : shiftout, "inside" : inside, "_from" : _from, "to" : to, **kwargs})
+
+class attach_part(_Bosl2Base):
+    def __init__(self, name=None, **kwargs):
+       super().__init__("attach_part", {"name" : name, **kwargs})
 
 class tag(_Bosl2Base):
     def __init__(self, tag=None, **kwargs):
        super().__init__("tag", {"tag" : tag, **kwargs})
+
+class tag_this(_Bosl2Base):
+    def __init__(self, tag=None, **kwargs):
+       super().__init__("tag_this", {"tag" : tag, **kwargs})
 
 class force_tag(_Bosl2Base):
     def __init__(self, tag=None, **kwargs):
@@ -197,6 +278,10 @@ class tag_conv_hull(_Bosl2Base):
 class hide(_Bosl2Base):
     def __init__(self, tags=None, **kwargs):
        super().__init__("hide", {"tags" : tags, **kwargs})
+
+class hide_this(_Bosl2Base):
+    def __init__(self, **kwargs):
+       super().__init__("hide_this", {**kwargs})
 
 class show_only(_Bosl2Base):
     def __init__(self, tags=None, **kwargs):
@@ -239,8 +324,16 @@ class corner_profile(_Bosl2Base):
        super().__init__("corner_profile", {"corners" : corners, "_except" : _except, "r" : r, "d" : d, "convexity" : convexity, **kwargs})
 
 class attachable(_Bosl2Base):
-    def __init__(self, anchor=None, spin=None, orient=None, size=None, size2=None, shift=None, r=None, r1=None, r2=None, d=None, d1=None, d2=None, l=None, h=None, vnf=None, path=None, region=None, extent=None, cp=None, offset=None, anchors=None, two_d=None, axis=None, override=None, geom=None, **kwargs):
-       super().__init__("attachable", {"anchor" : anchor, "spin" : spin, "orient" : orient, "size" : size, "size2" : size2, "shift" : shift, "r" : r, "r1" : r1, "r2" : r2, "d" : d, "d1" : d1, "d2" : d2, "l" : l, "h" : h, "vnf" : vnf, "path" : path, "region" : region, "extent" : extent, "cp" : cp, "offset" : offset, "anchors" : anchors, "two_d" : two_d, "axis" : axis, "override" : override, "geom" : geom, **kwargs})
+    def __init__(self, anchor=None, spin=None, orient=None, size=None, size2=None, shift=None, r=None, r1=None, r2=None, d=None, d1=None, d2=None, l=None, h=None, vnf=None, path=None, region=None, extent=None, cp=None, offset=None, anchors=None, two_d=None, axis=None, override=None, geom=None, parts=None, expose_tags=None, keep_color=None, **kwargs):
+       super().__init__("attachable", {"anchor" : anchor, "spin" : spin, "orient" : orient, "size" : size, "size2" : size2, "shift" : shift, "r" : r, "r1" : r1, "r2" : r2, "d" : d, "d1" : d1, "d2" : d2, "l" : l, "h" : h, "vnf" : vnf, "path" : path, "region" : region, "extent" : extent, "cp" : cp, "offset" : offset, "anchors" : anchors, "two_d" : two_d, "axis" : axis, "override" : override, "geom" : geom, "parts" : parts, "expose_tags" : expose_tags, "keep_color" : keep_color, **kwargs})
+
+class _show_highlight(_Bosl2Base):
+    def __init__(self, **kwargs):
+       super().__init__("_show_highlight", {**kwargs})
+
+class _show_ghost(_Bosl2Base):
+    def __init__(self, **kwargs):
+       super().__init__("_show_ghost", {**kwargs})
 
 class show_anchors(_Bosl2Base):
     def __init__(self, s=None, std=None, custom=None, **kwargs):
@@ -285,4 +378,12 @@ class _show_corners(_Bosl2Base):
 class _show_cube_faces(_Bosl2Base):
     def __init__(self, faces=None, size=None, toplabel=None, botlabel=None, **kwargs):
        super().__init__("_show_cube_faces", {"faces" : faces, "size" : size, "toplabel" : toplabel, "botlabel" : botlabel, **kwargs})
+
+class restore(_Bosl2Base):
+    def __init__(self, desc=None, **kwargs):
+       super().__init__("restore", {"desc" : desc, **kwargs})
+
+class desc_copies(_Bosl2Base):
+    def __init__(self, transforms=None, **kwargs):
+       super().__init__("desc_copies", {"transforms" : transforms, **kwargs})
 

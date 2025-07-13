@@ -7,6 +7,7 @@ from .bosl2_base import Bosl2Base as _Bosl2Base
 _extra_scad_include(f"{_Path(__file__).parent.parent / 'bosl2/BOSL2/transforms.scad'}", False)
 
 _NO_ARG = _OpenSCADConstant('_NO_ARG')
+_transform = _OpenSCADConstant('_transform')
 class move(_Bosl2Base):
     def __init__(self, v=None, p=None, **kwargs):
        super().__init__("move", {"v" : v, "p" : p, **kwargs})
@@ -214,4 +215,20 @@ class frame_map(_Bosl2Base):
 class skew(_Bosl2Base):
     def __init__(self, p=None, sxy=None, sxz=None, syx=None, syz=None, szx=None, szy=None, axy=None, axz=None, ayx=None, ayz=None, azx=None, azy=None, **kwargs):
        super().__init__("skew", {"p" : p, "sxy" : sxy, "sxz" : sxz, "syx" : syx, "syz" : syz, "szx" : szx, "szy" : szy, "axy" : axy, "axz" : axz, "ayx" : ayx, "ayz" : ayz, "azx" : azx, "azy" : azy, **kwargs})
+
+class translate(_Bosl2Base):
+    def __init__(self, v=None, **kwargs):
+       super().__init__("translate", {"v" : v, **kwargs})
+
+class rotate(_Bosl2Base):
+    def __init__(self, a=None, v=None, **kwargs):
+       super().__init__("rotate", {"a" : a, "v" : v, **kwargs})
+
+class scale(_Bosl2Base):
+    def __init__(self, v=None, **kwargs):
+       super().__init__("scale", {"v" : v, **kwargs})
+
+class multmatrix(_Bosl2Base):
+    def __init__(self, m=None, **kwargs):
+       super().__init__("multmatrix", {"m" : m, **kwargs})
 

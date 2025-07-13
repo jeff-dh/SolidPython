@@ -94,3 +94,7 @@ class rabbit_clip(_Bosl2Base):
     def __init__(self, type=None, length=None, width=None, snap=None, thickness=None, depth=None, compression=None, clearance=None, lock=None, lock_clearance=None, splinesteps=None, anchor=None, orient=None, spin=None, **kwargs):
        super().__init__("rabbit_clip", {"type" : type, "length" : length, "width" : width, "snap" : snap, "thickness" : thickness, "depth" : depth, "compression" : compression, "clearance" : clearance, "lock" : lock, "lock_clearance" : lock_clearance, "splinesteps" : splinesteps, "anchor" : anchor, "orient" : orient, "spin" : spin, **kwargs})
 
+class hirth(_Bosl2Base):
+    def __init__(self, n=None, ir=None, _or=None, id=None, od=None, tooth_angle=None, cone_angle=None, chamfer=None, rounding=None, base=None, crop=None, skew=None, rot=None, orient=None, anchor=None, spin=None, **kwargs):
+       super().__init__("hirth", {"n" : n, "ir" : ir, "_or" : _or, "id" : id, "od" : od, "tooth_angle" : tooth_angle, "cone_angle" : cone_angle, "chamfer" : chamfer, "rounding" : rounding, "base" : base, "crop" : crop, "skew" : skew, "rot" : rot, "orient" : orient, "anchor" : anchor, "spin" : spin, **kwargs})
+

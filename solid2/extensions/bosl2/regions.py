@@ -99,8 +99,8 @@ class _point_dist(_Bosl2Base):
        super().__init__("_point_dist", {"path" : path, "pathseg_unit" : pathseg_unit, "pathseg_len" : pathseg_len, "pt" : pt, **kwargs})
 
 class offset(_Bosl2Base):
-    def __init__(self, path=None, r=None, delta=None, chamfer=None, closed=None, check_valid=None, quality=None, return_faces=None, firstface_index=None, flip_faces=None, same_length=None, **kwargs):
-       super().__init__("offset", {"path" : path, "r" : r, "delta" : delta, "chamfer" : chamfer, "closed" : closed, "check_valid" : check_valid, "quality" : quality, "return_faces" : return_faces, "firstface_index" : firstface_index, "flip_faces" : flip_faces, "same_length" : same_length, **kwargs})
+    def __init__(self, path=None, r=None, delta=None, chamfer=None, closed=None, check_valid=None, quality=None, error=None, return_faces=None, firstface_index=None, flip_faces=None, same_length=None, **kwargs):
+       super().__init__("offset", {"path" : path, "r" : r, "delta" : delta, "chamfer" : chamfer, "closed" : closed, "check_valid" : check_valid, "quality" : quality, "error" : error, "return_faces" : return_faces, "firstface_index" : firstface_index, "flip_faces" : flip_faces, "same_length" : same_length, **kwargs})
 
 class _filter_region_parts(_Bosl2Base):
     def __init__(self, region1=None, region2=None, keep=None, eps=None, **kwargs):
@@ -126,11 +126,27 @@ class exclusive_or(_Bosl2Base):
     def __init__(self, regions=None, b=None, c=None, eps=None, **kwargs):
        super().__init__("exclusive_or", {"regions" : regions, "b" : b, "c" : c, "eps" : eps, **kwargs})
 
+class hull_region(_Bosl2Base):
+    def __init__(self, region=None, **kwargs):
+       super().__init__("hull_region", {"region" : region, **kwargs})
+
+class fill(_Bosl2Base):
+    def __init__(self, region=None, **kwargs):
+       super().__init__("fill", {"region" : region, **kwargs})
+
 class region(_Bosl2Base):
     def __init__(self, r=None, anchor=None, spin=None, cp=None, atype=None, **kwargs):
        super().__init__("region", {"r" : r, "anchor" : anchor, "spin" : spin, "cp" : cp, "atype" : atype, **kwargs})
 
+class debug_region(_Bosl2Base):
+    def __init__(self, region=None, vertices=None, edges=None, convexity=None, size=None, **kwargs):
+       super().__init__("debug_region", {"region" : region, "vertices" : vertices, "edges" : edges, "convexity" : convexity, "size" : size, **kwargs})
+
 class exclusive_or(_Bosl2Base):
     def __init__(self, **kwargs):
        super().__init__("exclusive_or", {**kwargs})
+
+class hull_region(_Bosl2Base):
+    def __init__(self, region=None, **kwargs):
+       super().__init__("hull_region", {"region" : region, **kwargs})
 

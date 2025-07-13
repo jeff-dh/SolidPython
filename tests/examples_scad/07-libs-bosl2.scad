@@ -2,9 +2,10 @@ include <../../solid2/extensions/bosl2/BOSL2/version.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/constants.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/transforms.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/distributors.scad>;
-include <../../solid2/extensions/bosl2/BOSL2/mutators.scad>;
+include <../../solid2/extensions/bosl2/BOSL2/miscellaneous.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/color.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/attachments.scad>;
+include <../../solid2/extensions/bosl2/BOSL2/beziers.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/shapes3d.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/shapes2d.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/drawing.scad>;
@@ -22,8 +23,10 @@ include <../../solid2/extensions/bosl2/BOSL2/coords.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/geometry.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/regions.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/strings.scad>;
-include <../../solid2/extensions/bosl2/BOSL2/skin.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/vnf.scad>;
+include <../../solid2/extensions/bosl2/BOSL2/structs.scad>;
+include <../../solid2/extensions/bosl2/BOSL2/rounding.scad>;
+include <../../solid2/extensions/bosl2/BOSL2/skin.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/utility.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/partitions.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/metric_screws.scad>;
@@ -43,12 +46,12 @@ union() {
 		diff() {
 			cuboid(size = 50) {
 				tag(tag = "remove") {
-					attach(from = TOP) {
+					attach(parent = TOP) {
 						sphere(d = 40);
 					}
 				}
 				tag(tag = "keep") {
-					attach(from = CTR) {
+					attach(parent = CTR) {
 						cylinder(d = 10, h = 40);
 					}
 				}

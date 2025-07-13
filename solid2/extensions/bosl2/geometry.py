@@ -74,9 +74,13 @@ class line_closest_point(_Bosl2Base):
     def __init__(self, line=None, pt=None, bounded=None, **kwargs):
        super().__init__("line_closest_point", {"line" : line, "pt" : pt, "bounded" : bounded, **kwargs})
 
+class _line_greatest_distance(_Bosl2Base):
+    def __init__(self, points=None, line=None, **kwargs):
+       super().__init__("_line_greatest_distance", {"points" : points, "line" : line, **kwargs})
+
 class line_from_points(_Bosl2Base):
-    def __init__(self, points=None, fast=None, eps=None, **kwargs):
-       super().__init__("line_from_points", {"points" : points, "fast" : fast, "eps" : eps, **kwargs})
+    def __init__(self, points=None, check_collinear=None, eps=None, fast=None, **kwargs):
+       super().__init__("line_from_points", {"points" : points, "check_collinear" : check_collinear, "eps" : eps, "fast" : fast, **kwargs})
 
 class is_coplanar(_Bosl2Base):
     def __init__(self, points=None, eps=None, **kwargs):
@@ -103,16 +107,16 @@ class _eigenvec_symm_3(_Bosl2Base):
        super().__init__("_eigenvec_symm_3", {"M" : M, "evals" : evals, "i" : i, **kwargs})
 
 class _covariance_evec_eval(_Bosl2Base):
-    def __init__(self, points=None, **kwargs):
-       super().__init__("_covariance_evec_eval", {"points" : points, **kwargs})
+    def __init__(self, points=None, eigenvalue_id=None, **kwargs):
+       super().__init__("_covariance_evec_eval", {"points" : points, "eigenvalue_id" : eigenvalue_id, **kwargs})
 
 class plane_from_points(_Bosl2Base):
-    def __init__(self, points=None, fast=None, eps=None, **kwargs):
-       super().__init__("plane_from_points", {"points" : points, "fast" : fast, "eps" : eps, **kwargs})
+    def __init__(self, points=None, check_coplanar=None, eps=None, fast=None, **kwargs):
+       super().__init__("plane_from_points", {"points" : points, "check_coplanar" : check_coplanar, "eps" : eps, "fast" : fast, **kwargs})
 
 class plane_from_polygon(_Bosl2Base):
-    def __init__(self, poly=None, fast=None, eps=None, **kwargs):
-       super().__init__("plane_from_polygon", {"poly" : poly, "fast" : fast, "eps" : eps, **kwargs})
+    def __init__(self, poly=None, check_coplanar=None, eps=None, fast=None, **kwargs):
+       super().__init__("plane_from_polygon", {"poly" : poly, "check_coplanar" : check_coplanar, "eps" : eps, "fast" : fast, **kwargs})
 
 class plane_normal(_Bosl2Base):
     def __init__(self, plane=None, **kwargs):
@@ -373,6 +377,10 @@ class _support_diff(_Bosl2Base):
 class rot_decode(_Bosl2Base):
     def __init__(self, M=None, long=None, **kwargs):
        super().__init__("rot_decode", {"M" : M, "long" : long, **kwargs})
+
+class show_plane(_Bosl2Base):
+    def __init__(self, plane=None, size=None, offset=None, **kwargs):
+       super().__init__("show_plane", {"plane" : plane, "size" : size, "offset" : offset, **kwargs})
 
 class hull_points(_Bosl2Base):
     def __init__(self, points=None, fast=None, **kwargs):

@@ -71,6 +71,14 @@ class path_to_bezpath(_Bosl2Base):
     def __init__(self, path=None, closed=None, tangents=None, uniform=None, size=None, relsize=None, **kwargs):
        super().__init__("path_to_bezpath", {"path" : path, "closed" : closed, "tangents" : tangents, "uniform" : uniform, "size" : size, "relsize" : relsize, **kwargs})
 
+class path_to_bezcornerpath(_Bosl2Base):
+    def __init__(self, path=None, closed=None, size=None, relsize=None, **kwargs):
+       super().__init__("path_to_bezcornerpath", {"path" : path, "closed" : closed, "size" : size, "relsize" : relsize, **kwargs})
+
+class _bez_path_corner(_Bosl2Base):
+    def __init__(self, p=None, curvesize=None, relative=None, mincurvesize=None, **kwargs):
+       super().__init__("_bez_path_corner", {"p" : p, "curvesize" : curvesize, "relative" : relative, "mincurvesize" : mincurvesize, **kwargs})
+
 class bezpath_close_to_axis(_Bosl2Base):
     def __init__(self, bezpath=None, axis=None, N=None, **kwargs):
        super().__init__("bezpath_close_to_axis", {"bezpath" : bezpath, "axis" : axis, "N" : N, **kwargs})
@@ -126,6 +134,10 @@ class bezier_vnf_degenerate_patch(_Bosl2Base):
 class bezier_patch_normals(_Bosl2Base):
     def __init__(self, patch=None, u=None, v=None, **kwargs):
        super().__init__("bezier_patch_normals", {"patch" : patch, "u" : u, "v" : v, **kwargs})
+
+class bezier_sheet(_Bosl2Base):
+    def __init__(self, patch=None, delta=None, splinesteps=None, style=None, thickness=None, **kwargs):
+       super().__init__("bezier_sheet", {"patch" : patch, "delta" : delta, "splinesteps" : splinesteps, "style" : style, "thickness" : thickness, **kwargs})
 
 class debug_bezier(_Bosl2Base):
     def __init__(self, bezpath=None, width=None, N=None, **kwargs):

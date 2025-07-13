@@ -114,6 +114,14 @@ class unique_count(_Bosl2Base):
     def __init__(self, list=None, **kwargs):
        super().__init__("unique_count", {"list" : list, **kwargs})
 
+class unique_approx(_Bosl2Base):
+    def __init__(self, data=None, eps=None, **kwargs):
+       super().__init__("unique_approx", {"data" : data, "eps" : eps, **kwargs})
+
+class unique_approx_indexed(_Bosl2Base):
+    def __init__(self, data=None, eps=None, **kwargs):
+       super().__init__("unique_approx_indexed", {"data" : data, "eps" : eps, **kwargs})
+
 class _valid_idx(_Bosl2Base):
     def __init__(self, idx=None, imin=None, imax=None, **kwargs):
        super().__init__("_valid_idx", {"idx" : idx, "imin" : imin, "imax" : imax, **kwargs})

@@ -27,8 +27,8 @@ class line_copies(_Bosl2Base):
        super().__init__("line_copies", {"spacing" : spacing, "n" : n, "l" : l, "p1" : p1, "p2" : p2, "p" : p, **kwargs})
 
 class grid_copies(_Bosl2Base):
-    def __init__(self, spacing=None, n=None, size=None, stagger=None, inside=None, nonzero=None, p=None, **kwargs):
-       super().__init__("grid_copies", {"spacing" : spacing, "n" : n, "size" : size, "stagger" : stagger, "inside" : inside, "nonzero" : nonzero, "p" : p, **kwargs})
+    def __init__(self, spacing=None, n=None, size=None, stagger=None, inside=None, nonzero=None, axes=None, p=None, **kwargs):
+       super().__init__("grid_copies", {"spacing" : spacing, "n" : n, "size" : size, "stagger" : stagger, "inside" : inside, "nonzero" : nonzero, "axes" : axes, "p" : p, **kwargs})
 
 class rot_copies(_Bosl2Base):
     def __init__(self, rots=None, v=None, cp=None, n=None, sa=None, offset=None, delta=None, subrot=None, p=None, **kwargs):
@@ -103,8 +103,8 @@ class grid2d(_Bosl2Base):
        super().__init__("grid2d", {"spacing" : spacing, "n" : n, "size" : size, "stagger" : stagger, "inside" : inside, "nonzero" : nonzero, **kwargs})
 
 class grid_copies(_Bosl2Base):
-    def __init__(self, spacing=None, n=None, size=None, stagger=None, inside=None, nonzero=None, **kwargs):
-       super().__init__("grid_copies", {"spacing" : spacing, "n" : n, "size" : size, "stagger" : stagger, "inside" : inside, "nonzero" : nonzero, **kwargs})
+    def __init__(self, spacing=None, n=None, size=None, stagger=None, inside=None, nonzero=None, axes=None, **kwargs):
+       super().__init__("grid_copies", {"spacing" : spacing, "n" : n, "size" : size, "stagger" : stagger, "inside" : inside, "nonzero" : nonzero, "axes" : axes, **kwargs})
 
 class rot_copies(_Bosl2Base):
     def __init__(self, rots=None, v=None, cp=None, n=None, sa=None, offset=None, delta=None, subrot=None, **kwargs):

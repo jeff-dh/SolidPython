@@ -6,6 +6,10 @@ from .bosl2_base import Bosl2Base as _Bosl2Base
 
 _extra_scad_include(f"{_Path(__file__).parent.parent / 'bosl2/BOSL2/strings.scad'}", False)
 
+class _is_liststr(_Bosl2Base):
+    def __init__(self, s=None, **kwargs):
+       super().__init__("_is_liststr", {"s" : s, **kwargs})
+
 class substr(_Bosl2Base):
     def __init__(self, str=None, pos=None, len=None, **kwargs):
        super().__init__("substr", {"str" : str, "pos" : pos, "len" : len, **kwargs})

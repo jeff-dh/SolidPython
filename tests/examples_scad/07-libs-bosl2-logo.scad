@@ -2,9 +2,10 @@ include <../../solid2/extensions/bosl2/BOSL2/version.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/constants.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/transforms.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/distributors.scad>;
-include <../../solid2/extensions/bosl2/BOSL2/mutators.scad>;
+include <../../solid2/extensions/bosl2/BOSL2/miscellaneous.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/color.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/attachments.scad>;
+include <../../solid2/extensions/bosl2/BOSL2/beziers.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/shapes3d.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/shapes2d.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/drawing.scad>;
@@ -22,12 +23,13 @@ include <../../solid2/extensions/bosl2/BOSL2/coords.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/geometry.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/regions.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/strings.scad>;
-include <../../solid2/extensions/bosl2/BOSL2/skin.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/vnf.scad>;
+include <../../solid2/extensions/bosl2/BOSL2/structs.scad>;
+include <../../solid2/extensions/bosl2/BOSL2/rounding.scad>;
+include <../../solid2/extensions/bosl2/BOSL2/skin.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/utility.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/partitions.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/gears.scad>;
-include <../../solid2/extensions/bosl2/BOSL2/beziers.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/screws.scad>;
 include <../../solid2/extensions/bosl2/BOSL2/cubetruss.scad>;
 
@@ -41,7 +43,7 @@ xdistribute(spacing = 50) {
 				tag(tag = "hole") {
 					cuboid(chamfer = 5, edges = [(RIGHT + BACK), (RIGHT + FRONT)], size = [30, 30, 11]);
 				}
-				attach(from = FRONT, overlap = 5, to = BACK) {
+				attach(child = BACK, overlap = 5, parent = FRONT) {
 					cuboid(edges = [(RIGHT + BACK), (RIGHT + FRONT)], rounding = 15, size = [45, 45, 10]) {
 						tag(tag = "hole") {
 							cuboid(edges = [(RIGHT + BACK), (RIGHT + FRONT)], rounding = 10, size = [30, 30, 11]);
@@ -65,12 +67,12 @@ xdistribute(spacing = 50) {
 	recolor(c = "#777") {
 		xdistribute(spacing = 24) {
 			screw(anchor = "origin", head = "hex", orient = BACK, spec = "M12,70") {
-				attach(from = BOT, to = CENTER) {
+				attach(child = CENTER, parent = BOT) {
 					nut(spec = "M12", thickness = 10);
 				}
 			}
 			screw(anchor = "origin", head = "hex", orient = BACK, spec = "M12,70") {
-				attach(from = BOT, to = CENTER) {
+				attach(child = CENTER, parent = BOT) {
 					nut(spec = "M12", thickness = 10);
 				}
 			}

@@ -6,6 +6,22 @@ from .bosl2_base import Bosl2Base as _Bosl2Base
 
 _extra_scad_include(f"{_Path(__file__).parent.parent / 'bosl2/BOSL2/color.scad'}", False)
 
+class highlight(_Bosl2Base):
+    def __init__(self, highlight=None, **kwargs):
+       super().__init__("highlight", {"highlight" : highlight, **kwargs})
+
+class highlight_this(_Bosl2Base):
+    def __init__(self, **kwargs):
+       super().__init__("highlight_this", {**kwargs})
+
+class ghost(_Bosl2Base):
+    def __init__(self, ghost=None, **kwargs):
+       super().__init__("ghost", {"ghost" : ghost, **kwargs})
+
+class ghost_this(_Bosl2Base):
+    def __init__(self, **kwargs):
+       super().__init__("ghost_this", {**kwargs})
+
 class hsl(_Bosl2Base):
     def __init__(self, h=None, s=None, l=None, a=None, **kwargs):
        super().__init__("hsl", {"h" : h, "s" : s, "l" : l, "a" : a, **kwargs})
@@ -29,6 +45,22 @@ class rainbow(_Bosl2Base):
 class color_overlaps(_Bosl2Base):
     def __init__(self, color=None, **kwargs):
        super().__init__("color_overlaps", {"color" : color, **kwargs})
+
+class highlight(_Bosl2Base):
+    def __init__(self, highlight=None, **kwargs):
+       super().__init__("highlight", {"highlight" : highlight, **kwargs})
+
+class highlight_this(_Bosl2Base):
+    def __init__(self, **kwargs):
+       super().__init__("highlight_this", {**kwargs})
+
+class ghost(_Bosl2Base):
+    def __init__(self, ghost=None, **kwargs):
+       super().__init__("ghost", {"ghost" : ghost, **kwargs})
+
+class ghost_this(_Bosl2Base):
+    def __init__(self, **kwargs):
+       super().__init__("ghost_this", {**kwargs})
 
 class hsl(_Bosl2Base):
     def __init__(self, h=None, s=None, l=None, a=None, **kwargs):

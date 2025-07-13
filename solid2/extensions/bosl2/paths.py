@@ -78,6 +78,10 @@ class path_torsion(_Bosl2Base):
     def __init__(self, path=None, closed=None, **kwargs):
        super().__init__("path_torsion", {"path" : path, "closed" : closed, **kwargs})
 
+class surface_normals(_Bosl2Base):
+    def __init__(self, surf=None, col_wrap=None, row_wrap=None, **kwargs):
+       super().__init__("surface_normals", {"surf" : surf, "col_wrap" : col_wrap, "row_wrap" : row_wrap, **kwargs})
+
 class path_cut(_Bosl2Base):
     def __init__(self, path=None, cutdist=None, closed=None, **kwargs):
        super().__init__("path_cut", {"path" : path, "cutdist" : cutdist, "closed" : closed, **kwargs})
@@ -137,4 +141,12 @@ class _assemble_a_path_from_fragments(_Bosl2Base):
 class _assemble_path_fragments(_Bosl2Base):
     def __init__(self, fragments=None, eps=None, _finished=None, **kwargs):
        super().__init__("_assemble_path_fragments", {"fragments" : fragments, "eps" : eps, "_finished" : _finished, **kwargs})
+
+class _assemble_partial_paths(_Bosl2Base):
+    def __init__(self, paths=None, closed=None, eps=None, **kwargs):
+       super().__init__("_assemble_partial_paths", {"paths" : paths, "closed" : closed, "eps" : eps, **kwargs})
+
+class _assemble_partial_paths_recur(_Bosl2Base):
+    def __init__(self, edges=None, eps=None, paths=None, i=None, **kwargs):
+       super().__init__("_assemble_partial_paths_recur", {"edges" : edges, "eps" : eps, "paths" : paths, "i" : i, **kwargs})
 

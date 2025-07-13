@@ -26,13 +26,17 @@ class v_abs(_Bosl2Base):
     def __init__(self, v=None, **kwargs):
        super().__init__("v_abs", {"v" : v, **kwargs})
 
+class v_ceil(_Bosl2Base):
+    def __init__(self, v=None, **kwargs):
+       super().__init__("v_ceil", {"v" : v, **kwargs})
+
 class v_floor(_Bosl2Base):
     def __init__(self, v=None, **kwargs):
        super().__init__("v_floor", {"v" : v, **kwargs})
 
-class v_ceil(_Bosl2Base):
+class v_round(_Bosl2Base):
     def __init__(self, v=None, **kwargs):
-       super().__init__("v_ceil", {"v" : v, **kwargs})
+       super().__init__("v_round", {"v" : v, **kwargs})
 
 class v_lookup(_Bosl2Base):
     def __init__(self, x=None, v=None, **kwargs):
@@ -58,9 +62,9 @@ class vector_bisect(_Bosl2Base):
     def __init__(self, v1=None, v2=None, **kwargs):
        super().__init__("vector_bisect", {"v1" : v1, "v2" : v2, **kwargs})
 
-class pointlist_bounds(_Bosl2Base):
-    def __init__(self, pts=None, **kwargs):
-       super().__init__("pointlist_bounds", {"pts" : pts, **kwargs})
+class vector_perp(_Bosl2Base):
+    def __init__(self, v=None, w=None, **kwargs):
+       super().__init__("vector_perp", {"v" : v, "w" : w, **kwargs})
 
 class closest_point(_Bosl2Base):
     def __init__(self, pt=None, points=None, **kwargs):
@@ -101,4 +105,12 @@ class _insert_sorted(_Bosl2Base):
 class _insert_many(_Bosl2Base):
     def __init__(self, list=None, k=None, newlist=None, i=None, **kwargs):
        super().__init__("_insert_many", {"list" : list, "k" : k, "newlist" : newlist, "i" : i, **kwargs})
+
+class pointlist_bounds(_Bosl2Base):
+    def __init__(self, pts=None, **kwargs):
+       super().__init__("pointlist_bounds", {"pts" : pts, **kwargs})
+
+class fit_to_box(_Bosl2Base):
+    def __init__(self, pts=None, x=None, y=None, z=None, **kwargs):
+       super().__init__("fit_to_box", {"pts" : pts, "x" : x, "y" : y, "z" : z, **kwargs})
 

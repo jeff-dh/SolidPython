@@ -30,3 +30,11 @@ class get_slop(_Bosl2Base):
     def __init__(self, **kwargs):
        super().__init__("get_slop", {**kwargs})
 
+class EDGE(_Bosl2Base):
+    def __init__(self, a=None, b=None, **kwargs):
+       super().__init__("EDGE", {"a" : a, "b" : b, **kwargs})
+
+class FACE(_Bosl2Base):
+    def __init__(self, i=None, **kwargs):
+       super().__init__("FACE", {"i" : i, **kwargs})
+

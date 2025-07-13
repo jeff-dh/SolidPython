@@ -74,7 +74,7 @@ def generateBosl2AccessSyntaxMixin(bosl2_dir, outputDir):
                                     paramListWithDefaults=paramListWithDefaults,
                                     paramList=paramList)
 
-    mods = ["transforms", "attachments", "mutators",
+    mods = ["transforms", "attachments", "miscellaneous",
             "distributors", "partitions", "color"]
 
     mixinFiles = [(bosl2_dir / m).with_suffix(".scad") for m in mods]
