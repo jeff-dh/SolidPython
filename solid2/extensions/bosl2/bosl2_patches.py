@@ -1,6 +1,6 @@
 __nothing__ = None
 
-from .bosl2_base import Bosl2Base as _Bosl2Base
+from .bosl2_base import Bosl2Base
 from .std import union, attachable
 
 #============ attachable add =============
@@ -20,3 +20,8 @@ def attachable_add(self, c):
 attachable.add = attachable_add
 #============ attachable add end =============
 
+# flip back & fwd -> issue #54
+# https://github.com/jeff-dh/SolidPython/issues/54
+back = Bosl2Base.back
+Bosl2Base.back = Bosl2Base.fwd #type: ignore
+Bosl2Base.fwd = back #type: ignore
