@@ -61,7 +61,7 @@ def py2openscad(o):
         escaped_str = re.sub(r'([\\"])', r'\\\1', o)
         return f'\"{escaped_str}\"'  # type: ignore
     if isinstance(o, ObjectBase):
-        return o._render()[:-2] #[:-1] removing traling ;\n
+        return o._render().rstrip().removesuffix(";") #removing traling ;\n
     if hasattr(o, "__iter__"):
         scadVals = [py2openscad(i) for i in o]
         return f"[{', '.join(scadVals)}]"
