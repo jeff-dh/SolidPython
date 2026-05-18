@@ -1,4 +1,5 @@
 from types import SimpleNamespace
+from typing import NamedTuple
 import inspect
 
 from .utils import resolve_scad_filename, escape_openscad_identifier
@@ -10,6 +11,15 @@ from .parse_scad import get_scad_file_as_dict
 module_cache_by_resolved_filename = {}
 extra_scad_includes = []
 
+
+class ScadImport(NamedTuple):
+    resolved_scad: str
+    original: str
+    new_namespace_dict: dict
+    use_not_include: bool
+    skip_render: bool
+    relative: str
+
 def check_module_cache(resolved_scad, use_not_include):
     global module_cache_by_resolved_filename
 
@@ -19,19 +29,19 @@ def check_module_cache(resolved_scad, use_not_include):
 
         #if this is a include call and the module was only used until now
         #set the "use/include" flag in the module cache
-        if not use_not_include and cache_entry[1]:
-            cache_entry[1] = False
+        if not use_not_include and cache_entry.use_not_include:
+            cache_entry.use_not_include = False
 
-        return cache_entry[0]
+        return cache_entry.new_namespace_dict
 
     return None
 
-def update_module_cache(resolved_scad, new_namespace_dict, use_not_include, skip_render):
+def update_module_cache(resolved_scad, original, new_namespace_dict, use_not_include, skip_render, relative):
     global module_cache_by_resolved_filename
     module_cache_by_resolved_filename[resolved_scad] = \
-                                        [new_namespace_dict, use_not_include, skip_render]
+                                        ScadImport(resolved_scad, original, new_namespace_dict, use_not_include, skip_render, relative)
 
-def load_scad_file_into_dict(resolved_scad, dest_namespace_dict, use_not_include, skip_render):
+def load_scad_file_into_dict(resolved_scad, original, dest_namespace_dict, use_not_include, skip_render, relative):
     #check the cache
     cached_dict = check_module_cache(resolved_scad, use_not_include)
     if cached_dict:
@@ -43,9 +53,9 @@ def load_scad_file_into_dict(resolved_scad, dest_namespace_dict, use_not_include
     dest_namespace_dict.update(new_namespace_dict)
 
     #and update the cache
-    update_module_cache(resolved_scad, new_namespace_dict, use_not_include, skip_render)
+    update_module_cache(resolved_scad, original, new_namespace_dict, use_not_include, skip_render, relative)
 
-def load_scad_dir_into_dict(resolved_scad, dest_namespace_dict, use_not_include, skip_render):
+def load_scad_dir_into_dict(resolved_scad, original, dest_namespace_dict, use_not_include, skip_render, relative):
     assert(resolved_scad.is_dir())
 
     #for each file in the dir
@@ -56,13 +66,13 @@ def load_scad_dir_into_dict(resolved_scad, dest_namespace_dict, use_not_include,
 
         #load it
         subspace = ExpSolidNamespace(f)
-        load_scad_file_or_dir_into_dict(f, subspace.__dict__, use_not_include, skip_render)
+        load_scad_file_or_dir_into_dict(f, original, subspace.__dict__, use_not_include, skip_render)
 
         #and add it to the dest_namespace_dict
         identifier = escape_openscad_identifier(f.stem)
         dest_namespace_dict[identifier] = subspace
 
-def load_scad_file_or_dir_into_dict(filename, dest_namespace_dict, use_not_include, skip_render):
+def load_scad_file_or_dir_into_dict(filename, dest_namespace_dict, use_not_include, skip_render, relative):
     assert(dest_namespace_dict != None)
 
     resolved_scad = resolve_scad_filename(filename)
@@ -72,14 +82,18 @@ def load_scad_file_or_dir_into_dict(filename, dest_namespace_dict, use_not_inclu
 
     if resolved_scad.is_file():
         load_scad_file_into_dict(resolved_scad,
+                                 filename,
                                  dest_namespace_dict,
                                  use_not_include,
-                                 skip_render)
+                                 skip_render,
+                                 relative)
     elif resolved_scad.is_dir():
         load_scad_dir_into_dict(resolved_scad,
+                                filename,
                                 dest_namespace_dict,
                                 use_not_include,
-                                skip_render)
+                                skip_render,
+                                relative)
 
 # use() & include() mimic OpenSCAD's use/include mechanics.
 # -- use() makes methods in scad_file_path.scad available to be called.
@@ -100,17 +114,17 @@ def get_callers_namespace_dict(depth=2):
               "they would polute the modules namespace and only if executed. This\n" +\
               "has strange side effects! Use them on module level.\n")
 
-def use(filename, skip_render=False):
-    load_scad_file_or_dir_into_dict(filename, get_callers_namespace_dict(), True, skip_render)
+def use(filename, skip_render=False, render_relative=False):
+    load_scad_file_or_dir_into_dict(filename, get_callers_namespace_dict(), True, skip_render, render_relative)
 
-def include(filename, skip_render=False):
-    load_scad_file_or_dir_into_dict(filename, get_callers_namespace_dict(), False, skip_render)
+def include(filename, skip_render=False, render_relative=False):
+    load_scad_file_or_dir_into_dict(filename, get_callers_namespace_dict(), False, skip_render, render_relative)
 
-def import_scad(filename, dest_namespace=None, use_not_include=True, skip_render=False):
+def import_scad(filename, dest_namespace=None, use_not_include=True, skip_render=False, render_relative=False):
     if dest_namespace == None:
         dest_namespace = ExpSolidNamespace(filename)
 
-    load_scad_file_or_dir_into_dict(filename, dest_namespace.__dict__, use_not_include, skip_render)
+    load_scad_file_or_dir_into_dict(filename, dest_namespace.__dict__, use_not_include, skip_render, render_relative)
 
     return dest_namespace
 

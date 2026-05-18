@@ -88,17 +88,18 @@ def get_include_string():
         else:
             strings.append(f"include <{file}>;")
 
-    for k, v in module_cache_by_resolved_filename.items():
+    for v in module_cache_by_resolved_filename.values():
         #skip builtins file
-        if v[2]: #skip_render flag
+        if v.skip_render:
             continue
+        k = v.resolved_scad if not v.relative else v.original
 
-        if v[1]:
+        if v.use_not_include:
             strings.append(f"use <{k}>;")
         else:
             strings.append(f"include <{k}>;")
 
-    s = "\n".join(strings)
+    s = "\n".join(set(strings))
     s += "\n\n" if s else ''
 
     return s
